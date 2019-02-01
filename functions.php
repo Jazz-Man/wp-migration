@@ -26,8 +26,10 @@
 /**
  * Get storage absolute path
  *
- * @param  array  $params Request parameters
+ * @param  array $params Request parameters
+ *
  * @return string
+ * @throws \Ai1wm_Storage_Exception
  */
 function ai1wm_storage_path( $params ) {
 	if ( empty( $params['storage'] ) ) {
@@ -46,8 +48,9 @@ function ai1wm_storage_path( $params ) {
 /**
  * Get backup absolute path
  *
- * @param  array  $params Request parameters
+ * @param  array $params Request parameters
  * @return string
+ * @throws \Ai1wm_Archive_Exception
  */
 function ai1wm_backup_path( $params ) {
 	if ( empty( $params['archive'] ) ) {
@@ -65,8 +68,10 @@ function ai1wm_backup_path( $params ) {
 /**
  * Get archive absolute path
  *
- * @param  array  $params Request parameters
+ * @param  array $params Request parameters
  * @return string
+ * @throws \Ai1wm_Archive_Exception
+ * @throws \Ai1wm_Storage_Exception
  */
 function ai1wm_archive_path( $params ) {
 	if ( empty( $params['archive'] ) ) {
@@ -89,8 +94,9 @@ function ai1wm_archive_path( $params ) {
 /**
  * Get export log absolute path
  *
- * @param  array  $params Request parameters
+ * @param  array $params Request parameters
  * @return string
+ * @throws \Ai1wm_Storage_Exception
  */
 function ai1wm_export_path( $params ) {
 	return ai1wm_storage_path( $params ) . DIRECTORY_SEPARATOR . AI1WM_EXPORT_NAME;
@@ -99,8 +105,9 @@ function ai1wm_export_path( $params ) {
 /**
  * Get import log absolute path
  *
- * @param  array  $params Request parameters
+ * @param  array $params Request parameters
  * @return string
+ * @throws \Ai1wm_Storage_Exception
  */
 function ai1wm_import_path( $params ) {
 	return ai1wm_storage_path( $params ) . DIRECTORY_SEPARATOR . AI1WM_IMPORT_NAME;
@@ -109,8 +116,9 @@ function ai1wm_import_path( $params ) {
 /**
  * Get multipart.list absolute path
  *
- * @param  array  $params Request parameters
+ * @param  array $params Request parameters
  * @return string
+ * @throws \Ai1wm_Storage_Exception
  */
 function ai1wm_multipart_path( $params ) {
 	return ai1wm_storage_path( $params ) . DIRECTORY_SEPARATOR . AI1WM_MULTIPART_NAME;
@@ -119,8 +127,9 @@ function ai1wm_multipart_path( $params ) {
 /**
  * Get filemap.list absolute path
  *
- * @param  array  $params Request parameters
+ * @param  array $params Request parameters
  * @return string
+ * @throws \Ai1wm_Storage_Exception
  */
 function ai1wm_filemap_path( $params ) {
 	return ai1wm_storage_path( $params ) . DIRECTORY_SEPARATOR . AI1WM_FILEMAP_NAME;
@@ -129,8 +138,9 @@ function ai1wm_filemap_path( $params ) {
 /**
  * Get package.json absolute path
  *
- * @param  array  $params Request parameters
+ * @param  array $params Request parameters
  * @return string
+ * @throws \Ai1wm_Storage_Exception
  */
 function ai1wm_package_path( $params ) {
 	return ai1wm_storage_path( $params ) . DIRECTORY_SEPARATOR . AI1WM_PACKAGE_NAME;
@@ -139,8 +149,9 @@ function ai1wm_package_path( $params ) {
 /**
  * Get multisite.json absolute path
  *
- * @param  array  $params Request parameters
+ * @param  array $params Request parameters
  * @return string
+ * @throws \Ai1wm_Storage_Exception
  */
 function ai1wm_multisite_path( $params ) {
 	return ai1wm_storage_path( $params ) . DIRECTORY_SEPARATOR . AI1WM_MULTISITE_NAME;
@@ -149,8 +160,9 @@ function ai1wm_multisite_path( $params ) {
 /**
  * Get blogs.json absolute path
  *
- * @param  array  $params Request parameters
+ * @param  array $params Request parameters
  * @return string
+ * @throws \Ai1wm_Storage_Exception
  */
 function ai1wm_blogs_path( $params ) {
 	return ai1wm_storage_path( $params ) . DIRECTORY_SEPARATOR . AI1WM_BLOGS_NAME;
@@ -159,8 +171,9 @@ function ai1wm_blogs_path( $params ) {
 /**
  * Get settings.json absolute path
  *
- * @param  array  $params Request parameters
+ * @param  array $params Request parameters
  * @return string
+ * @throws \Ai1wm_Storage_Exception
  */
 function ai1wm_settings_path( $params ) {
 	return ai1wm_storage_path( $params ) . DIRECTORY_SEPARATOR . AI1WM_SETTINGS_NAME;
@@ -169,8 +182,9 @@ function ai1wm_settings_path( $params ) {
 /**
  * Get database.sql absolute path
  *
- * @param  array  $params Request parameters
+ * @param  array $params Request parameters
  * @return string
+ * @throws \Ai1wm_Storage_Exception
  */
 function ai1wm_database_path( $params ) {
 	return ai1wm_storage_path( $params ) . DIRECTORY_SEPARATOR . AI1WM_DATABASE_NAME;
@@ -222,8 +236,11 @@ function ai1wm_backup_url( $params ) {
 /**
  * Get archive size in bytes
  *
- * @param  array   $params Request parameters
+ * @param  array $params Request parameters
+ *
  * @return integer
+ * @throws \Ai1wm_Archive_Exception
+ * @throws \Ai1wm_Storage_Exception
  */
 function ai1wm_archive_bytes( $params ) {
 	return filesize( ai1wm_archive_path( $params ) );
@@ -232,8 +249,9 @@ function ai1wm_archive_bytes( $params ) {
 /**
  * Get backup size in bytes
  *
- * @param  array   $params Request parameters
+ * @param  array $params Request parameters
  * @return integer
+ * @throws \Ai1wm_Archive_Exception
  */
 function ai1wm_backup_bytes( $params ) {
 	return filesize( ai1wm_backup_path( $params ) );
@@ -242,8 +260,10 @@ function ai1wm_backup_bytes( $params ) {
 /**
  * Get database size in bytes
  *
- * @param  array   $params Request parameters
+ * @param  array $params Request parameters
+ *
  * @return integer
+ * @throws \Ai1wm_Storage_Exception
  */
 function ai1wm_database_bytes( $params ) {
 	return filesize( ai1wm_database_path( $params ) );
@@ -252,8 +272,9 @@ function ai1wm_database_bytes( $params ) {
 /**
  * Get package size in bytes
  *
- * @param  array   $params Request parameters
+ * @param  array $params Request parameters
  * @return integer
+ * @throws \Ai1wm_Storage_Exception
  */
 function ai1wm_package_bytes( $params ) {
 	return filesize( ai1wm_package_path( $params ) );
@@ -262,8 +283,9 @@ function ai1wm_package_bytes( $params ) {
 /**
  * Get multisite size in bytes
  *
- * @param  array   $params Request parameters
+ * @param  array $params Request parameters
  * @return integer
+ * @throws \Ai1wm_Storage_Exception
  */
 function ai1wm_multisite_bytes( $params ) {
 	return filesize( ai1wm_multisite_path( $params ) );
@@ -272,8 +294,10 @@ function ai1wm_multisite_bytes( $params ) {
 /**
  * Get archive size as text
  *
- * @param  array  $params Request parameters
+ * @param  array $params Request parameters
  * @return string
+ * @throws \Ai1wm_Archive_Exception
+ * @throws \Ai1wm_Storage_Exception
  */
 function ai1wm_archive_size( $params ) {
 	return size_format( filesize( ai1wm_archive_path( $params ) ) );
@@ -282,8 +306,9 @@ function ai1wm_archive_size( $params ) {
 /**
  * Get backup size as text
  *
- * @param  array  $params Request parameters
+ * @param  array $params Request parameters
  * @return string
+ * @throws \Ai1wm_Archive_Exception
  */
 function ai1wm_backup_size( $params ) {
 	return size_format( filesize( ai1wm_backup_path( $params ) ) );
@@ -335,7 +360,7 @@ function ai1wm_archive_file( $blog_id = null ) {
 	$name[] = parse_url( get_site_url( $blog_id ), PHP_URL_HOST );
 
 	// Add path
-	if ( ( $path = explode( '/', parse_url( get_site_url( $blog_id ), PHP_URL_PATH ) ) ) ) {
+	if ($path = explode( '/', parse_url( get_site_url( $blog_id ), PHP_URL_PATH ) )) {
 		foreach ( $path as $directory ) {
 			if ( $directory ) {
 				$name[] = $directory;
@@ -368,7 +393,7 @@ function ai1wm_archive_folder( $blog_id = null ) {
 	$name[] = parse_url( get_site_url( $blog_id ), PHP_URL_HOST );
 
 	// Add path
-	if ( ( $path = explode( '/', parse_url( get_site_url( $blog_id ), PHP_URL_PATH ) ) ) ) {
+	if ($path = explode( '/', parse_url( get_site_url( $blog_id ), PHP_URL_PATH ) )) {
 		foreach ( $path as $directory ) {
 			if ( $directory ) {
 				$name[] = $directory;
@@ -389,7 +414,7 @@ function ai1wm_archive_bucket( $blog_id = null ) {
 	$name = array();
 
 	// Add domain
-	if ( ( $domain = explode( '.', parse_url( get_site_url( $blog_id ), PHP_URL_HOST ) ) ) ) {
+	if ($domain = explode( '.', parse_url( get_site_url( $blog_id ), PHP_URL_HOST ) )) {
 		foreach ( $domain as $subdomain ) {
 			if ( $subdomain ) {
 				$name[] = $subdomain;
@@ -398,7 +423,7 @@ function ai1wm_archive_bucket( $blog_id = null ) {
 	}
 
 	// Add path
-	if ( ( $path = explode( '/', parse_url( get_site_url( $blog_id ), PHP_URL_PATH ) ) ) ) {
+	if ($path = explode( '/', parse_url( get_site_url( $blog_id ), PHP_URL_PATH ) )) {
 		foreach ( $path as $directory ) {
 			if ( $directory ) {
 				$name[] = $directory;
@@ -419,7 +444,7 @@ function ai1wm_archive_vault( $blog_id = null ) {
 	$name = array();
 
 	// Add domain
-	if ( ( $domain = explode( '.', parse_url( get_site_url( $blog_id ), PHP_URL_HOST ) ) ) ) {
+	if ($domain = explode( '.', parse_url( get_site_url( $blog_id ), PHP_URL_HOST ) )) {
 		foreach ( $domain as $subdomain ) {
 			if ( $subdomain ) {
 				$name[] = $subdomain;
@@ -428,7 +453,7 @@ function ai1wm_archive_vault( $blog_id = null ) {
 	}
 
 	// Add path
-	if ( ( $path = explode( '/', parse_url( get_site_url( $blog_id ), PHP_URL_PATH ) ) ) ) {
+	if ($path = explode( '/', parse_url( get_site_url( $blog_id ), PHP_URL_PATH ) )) {
 		foreach ( $path as $directory ) {
 			if ( $directory ) {
 				$name[] = $directory;
@@ -449,7 +474,7 @@ function ai1wm_archive_project( $blog_id = null ) {
 	$name = array();
 
 	// Add domain
-	if ( ( $domain = explode( '.', parse_url( get_site_url( $blog_id ), PHP_URL_HOST ) ) ) ) {
+	if ($domain = explode( '.', parse_url( get_site_url( $blog_id ), PHP_URL_HOST ) )) {
 		foreach ( $domain as $subdomain ) {
 			if ( $subdomain ) {
 				$name[] = $subdomain;
@@ -458,7 +483,7 @@ function ai1wm_archive_project( $blog_id = null ) {
 	}
 
 	// Add path
-	if ( ( $path = explode( '/', parse_url( get_site_url( $blog_id ), PHP_URL_PATH ) ) ) ) {
+	if ($path = explode( '/', parse_url( get_site_url( $blog_id ), PHP_URL_PATH ) )) {
 		foreach ( $path as $directory ) {
 			if ( $directory ) {
 				$name[] = $directory;
@@ -479,7 +504,7 @@ function ai1wm_archive_share( $blog_id = null ) {
 	$name = array();
 
 	// Add domain
-	if ( ( $domain = explode( '.', parse_url( get_site_url( $blog_id ), PHP_URL_HOST ) ) ) ) {
+	if ($domain = explode( '.', parse_url( get_site_url( $blog_id ), PHP_URL_HOST ) )) {
 		foreach ( $domain as $subdomain ) {
 			if ( $subdomain ) {
 				$name[] = $subdomain;
@@ -488,7 +513,7 @@ function ai1wm_archive_share( $blog_id = null ) {
 	}
 
 	// Add path
-	if ( ( $path = explode( '/', parse_url( get_site_url( $blog_id ), PHP_URL_PATH ) ) ) ) {
+	if ($path = explode( '/', parse_url( get_site_url( $blog_id ), PHP_URL_PATH ) )) {
 		foreach ( $path as $directory ) {
 			if ( $directory ) {
 				$name[] = $directory;
@@ -505,7 +530,7 @@ function ai1wm_archive_share( $blog_id = null ) {
  * @return string
  */
 function ai1wm_storage_folder() {
-	return uniqid();
+	return uniqid('', true);
 }
 
 /**
@@ -1037,13 +1062,11 @@ function ai1wm_deactivate_jetpack_modules( $modules ) {
  * @return string
  */
 function ai1wm_discover_plugin_basename( $basename ) {
-	if ( ( $plugins = get_plugins() ) ) {
+	if ($plugins = get_plugins()) {
 		foreach ( $plugins as $plugin => $info ) {
-			if ( strpos( dirname( $plugin ), dirname( $basename ) ) !== false ) {
-				if ( basename( $plugin ) === basename( $basename ) ) {
-					return $plugin;
-				}
-			}
+			if ((strpos(dirname($plugin), dirname($basename)) !== false) && basename($plugin) === basename($basename)) {
+                return $plugin;
+            }
 		}
 	}
 
@@ -1057,7 +1080,7 @@ function ai1wm_discover_plugin_basename( $basename ) {
  * @return boolean
  */
 function ai1wm_validate_plugin_basename( $basename ) {
-	if ( ( $plugins = get_plugins() ) ) {
+	if ($plugins = get_plugins()) {
 		foreach ( $plugins as $plugin => $info ) {
 			if ( $plugin === $basename ) {
 				return true;
@@ -1075,7 +1098,7 @@ function ai1wm_validate_plugin_basename( $basename ) {
  * @return boolean
  */
 function ai1wm_validate_theme_basename( $basename ) {
-	if ( ( $themes = search_theme_directories() ) ) {
+	if ($themes = search_theme_directories()) {
 		foreach ( $themes as $theme => $info ) {
 			if ( $info['theme_file'] === $basename ) {
 				return true;
@@ -1155,11 +1178,11 @@ function ai1wm_open( $file, $mode ) {
 function ai1wm_write( $handle, $content ) {
 	$write_result = @fwrite( $handle, $content );
 	if ( false === $write_result ) {
-		if ( ( $meta = stream_get_meta_data( $handle ) ) ) {
+		if ($meta = stream_get_meta_data( $handle )) {
 			throw new Ai1wm_Not_Writable_Exception( sprintf( __( 'Unable to write to: %s. <a href="https://help.servmask.com/knowledgebase/invalid-file-permissions/" target="_blank">Technical details</a>', AI1WM_PLUGIN_NAME ), $meta['uri'] ) );
 		}
 	} elseif ( strlen( $content ) !== $write_result ) {
-		if ( ( $meta = stream_get_meta_data( $handle ) ) ) {
+		if ($meta = stream_get_meta_data( $handle )) {
 			throw new Ai1wm_Quota_Exceeded_Exception( sprintf( __( 'Out of disk space. Unable to write to: %s. <a href="https://help.servmask.com/knowledgebase/out-of-disk-space/" target="_blank">Technical details</a>', AI1WM_PLUGIN_NAME ), $meta['uri'] ) );
 		}
 	}
@@ -1177,11 +1200,9 @@ function ai1wm_write( $handle, $content ) {
  */
 function ai1wm_read( $handle, $filesize ) {
 	$read_result = @fread( $handle, $filesize );
-	if ( false === $read_result ) {
-		if ( ( $meta = stream_get_meta_data( $handle ) ) ) {
-			throw new Ai1wm_Not_Readable_Exception( sprintf( __( 'Unable to read file: %s. <a href="https://help.servmask.com/knowledgebase/invalid-file-permissions/" target="_blank">Technical details</a>', AI1WM_PLUGIN_NAME ), $meta['uri'] ) );
-		}
-	}
+	if ((false === $read_result) && $meta = stream_get_meta_data($handle)) {
+        throw new Ai1wm_Not_Readable_Exception( sprintf( __( 'Unable to read file: %s. <a href="https://help.servmask.com/knowledgebase/invalid-file-permissions/" target="_blank">Technical details</a>', AI1WM_PLUGIN_NAME ), $meta['uri'] ) );
+    }
 
 	return $read_result;
 }
@@ -1189,16 +1210,17 @@ function ai1wm_read( $handle, $filesize ) {
 /**
  * Seeks on a file pointer
  *
- * @param  string  $handle File handle to seeks
+ * @param  string $handle File handle to seeks
+ * @param         $offset
+ * @param int     $mode
  * @return integer
+ * @throws \Ai1wm_Not_Seekable_Exception
  */
 function ai1wm_seek( $handle, $offset, $mode = SEEK_SET ) {
 	$seek_result = @fseek( $handle, $offset, $mode );
-	if ( -1 === $seek_result ) {
-		if ( ( $meta = stream_get_meta_data( $handle ) ) ) {
-			throw new Ai1wm_Not_Seekable_Exception( sprintf( __( 'Unable to seek to offset %d on %s. <a href="https://help.servmask.com/knowledgebase/php-32bit/" target="_blank">Technical details</a>', AI1WM_PLUGIN_NAME ), $offset, $meta['uri'] ) );
-		}
-	}
+	if ((-1 === $seek_result) && $meta = stream_get_meta_data($handle)) {
+        throw new Ai1wm_Not_Seekable_Exception( sprintf( __( 'Unable to seek to offset %d on %s. <a href="https://help.servmask.com/knowledgebase/php-32bit/" target="_blank">Technical details</a>', AI1WM_PLUGIN_NAME ), $offset, $meta['uri'] ) );
+    }
 
 	return $seek_result;
 }
@@ -1206,16 +1228,15 @@ function ai1wm_seek( $handle, $offset, $mode = SEEK_SET ) {
 /**
  * Tells on a file pointer
  *
- * @param  string  $handle File handle to tells
+ * @param  string $handle File handle to tells
  * @return integer
+ * @throws \Ai1wm_Not_Tellable_Exception
  */
 function ai1wm_tell( $handle ) {
 	$tell_result = @ftell( $handle );
-	if ( false === $tell_result ) {
-		if ( ( $meta = stream_get_meta_data( $handle ) ) ) {
-			throw new Ai1wm_Not_Tellable_Exception( sprintf( __( 'Unable to get current pointer position of %s. <a href="https://help.servmask.com/knowledgebase/php-32bit/" target="_blank">Technical details</a>', AI1WM_PLUGIN_NAME ), $meta['uri'] ) );
-		}
-	}
+	if ((false === $tell_result) && $meta = stream_get_meta_data($handle)) {
+        throw new Ai1wm_Not_Tellable_Exception( sprintf( __( 'Unable to get current pointer position of %s. <a href="https://help.servmask.com/knowledgebase/php-32bit/" target="_blank">Technical details</a>', AI1WM_PLUGIN_NAME ), $meta['uri'] ) );
+    }
 
 	return $tell_result;
 }
@@ -1244,7 +1265,7 @@ function ai1wm_unlink( $file ) {
  * Sets modification time of a file
  *
  * @param  string  $file Path to file to change modification time
- * @param  integer $time File modification time
+ * @param  integer $mtime File modification time
  * @return boolean
  */
 function ai1wm_touch( $file, $mtime ) {
@@ -1255,7 +1276,7 @@ function ai1wm_touch( $file, $mtime ) {
  * Changes file mode
  *
  * @param  string  $file Path to file to change mode
- * @param  integer $time File mode
+ * @param  integer $mode File mode
  * @return boolean
  */
 function ai1wm_chmod( $file, $mode ) {
@@ -1267,6 +1288,10 @@ function ai1wm_chmod( $file, $mode ) {
  *
  * @param  string $source_file      File to copy the contents from
  * @param  string $destination_file File to copy the contents to
+ * @throws \Ai1wm_Not_Accessible_Exception
+ * @throws \Ai1wm_Not_Readable_Exception
+ * @throws \Ai1wm_Not_Writable_Exception
+ * @throws \Ai1wm_Quota_Exceeded_Exception
  */
 function ai1wm_copy( $source_file, $destination_file ) {
 	$source_handle      = ai1wm_open( $source_file, 'rb' );
@@ -1329,23 +1354,21 @@ function ai1wm_find_smaller_number( Math_BigInteger $a, Math_BigInteger $b ) {
  *
  * @param  string  $file         Path to file
  * @param  integer $php_int_size Size of PHP integer
+ * @param int      $php_int_max
+ *
  * @return boolean $php_int_max  Max value of PHP integer
  */
 function ai1wm_is_filesize_supported( $file, $php_int_size = PHP_INT_SIZE, $php_int_max = PHP_INT_MAX ) {
 	$size_result = true;
 
 	// Check whether file size is less than 2GB in PHP 32bits
-	if ( $php_int_size === 4 ) {
-		if ( ( $file_handle = @fopen( $file, 'r' ) ) ) {
-			if ( @fseek( $file_handle, $php_int_max, SEEK_SET ) !== -1 ) {
-				if ( @fgetc( $file_handle ) !== false ) {
-					$size_result = false;
-				}
-			}
+	if (($php_int_size === 4) && $file_handle = @fopen($file, 'r')) {
+        if ((@fseek($file_handle, $php_int_max, SEEK_SET) !== -1) && @fgetc($file_handle) !== false) {
+                $size_result = false;
+            }
 
-			@fclose( $file_handle );
-		}
-	}
+        @fclose( $file_handle );
+    }
 
 	return $size_result;
 }
@@ -1357,6 +1380,7 @@ function ai1wm_is_filesize_supported( $file, $php_int_size = PHP_INT_SIZE, $php_
  *
  * @param resource        $file_handle Handle to the file
  * @param Math_BigInteger $offset      Offset of the file
+ * @throws \Ai1wm_Not_Readable_Exception
  */
 function ai1wm_fseek( $file_handle, Math_BigInteger $offset ) {
 	$chunk_size = ai1wm_find_smaller_number( new Math_BigInteger( 2000000 ), $offset );

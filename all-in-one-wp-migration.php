@@ -50,15 +50,6 @@ define( 'AI1WM_BACKUPS_URL', content_url( 'ai1wm-backups', AI1WM_PLUGIN_BASENAME
 // Themes Absolute Path
 define( 'AI1WM_THEMES_PATH', get_theme_root() );
 
-// Include constants
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'constants.php';
-
-// Include deprecated
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'deprecated.php';
-
-// Include functions
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'functions.php';
-
 // Include exceptions
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'exceptions.php';
 

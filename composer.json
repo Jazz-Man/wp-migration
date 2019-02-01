@@ -17,7 +17,8 @@
     "require": {
         "php":">=5.6",
         "pear/math_biginteger": "^1.0",
-        "bandar/bandar": "^3.0"
+        "bandar/bandar": "^3.0",
+        "ext-mbstring": "^5.6"
     },
     "extra": {
         "installer-paths": {
@@ -26,5 +27,15 @@
             "vendor/wp/themes/{$name}/": ["type:wordpress-theme"]
         },
         "wordpress-install-dir": "vendor/wp"
+    },
+    "autoload": {
+        "psr-4": {
+            "JazzMan\\WP_Migration\\":"src"
+        },
+        "files": [
+            "constants.php",
+            "deprecated.php",
+            "functions.php"
+        ]
     }
 }
