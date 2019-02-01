@@ -130,38 +130,34 @@ abstract class Ai1wm_Database {
 	 */
 	protected $betheme_responsive = false;
 
-	/**
-	 * Constructor
-	 *
-	 * @param object $wpdb WPDB instance
-	 */
+    /**
+     * Constructor
+     *
+     * @param object $wpdb WPDB instance
+     *
+     * @throws \Exception
+     */
 	public function __construct( $wpdb ) {
 		$this->wpdb = $wpdb;
 
 		// Check Microsoft SQL Server support
-		if ( is_resource( $this->wpdb->dbh ) ) {
-			if ( get_resource_type( $this->wpdb->dbh ) === 'SQL Server Connection' ) {
-				throw new Exception(
-					'Your WordPress installation uses Microsoft SQL Server. ' .
-					'In order to use All in One WP Migration, please change your installation to MySQL and try again. ' .
-					'<a href="https://help.servmask.com/knowledgebase/microsoft-sql-server/" target="_blank">Technical details</a>'
-				);
-			}
-		}
+		if (is_resource($this->wpdb->dbh) && get_resource_type($this->wpdb->dbh) === 'SQL Server Connection') {
+            throw new Exception(
+                'Your WordPress installation uses Microsoft SQL Server. ' .
+                'In order to use All in One WP Migration, please change your installation to MySQL and try again. ' .
+                '<a href="https://help.servmask.com/knowledgebase/microsoft-sql-server/" target="_blank">Technical details</a>'
+            );
+        }
 
 		// Set database host (HyberDB)
-		if ( empty( $this->wpdb->dbhost ) ) {
-			if ( isset( $this->wpdb->last_used_server['host'] ) ) {
-				$this->wpdb->dbhost = $this->wpdb->last_used_server['host'];
-			}
-		}
+		if (empty($this->wpdb->dbhost) && isset($this->wpdb->last_used_server['host'])) {
+            $this->wpdb->dbhost = $this->wpdb->last_used_server['host'];
+        }
 
 		// Set database name (HyperDB)
-		if ( empty( $this->wpdb->dbname ) ) {
-			if ( isset( $this->wpdb->last_used_server['name'] ) ) {
-				$this->wpdb->dbname = $this->wpdb->last_used_server['name'];
-			}
-		}
+		if (empty($this->wpdb->dbname) && isset($this->wpdb->last_used_server['name'])) {
+            $this->wpdb->dbname = $this->wpdb->last_used_server['name'];
+        }
 	}
 
 	/**
@@ -582,7 +578,7 @@ abstract class Ai1wm_Database {
 		$tables = $this->get_tables();
 
 		// Export tables
-		for ( ; $table_index < count( $tables ); ) {
+		for ($table_indexMax = count($tables); $table_index < $table_indexMax; ) {
 
 			// Get table name
 			$table_name = $tables[ $table_index ];
@@ -735,12 +731,11 @@ abstract class Ai1wm_Database {
 				$this->free_result( $result );
 
 				// Time elapsed
-				if ( ( $timeout = apply_filters( 'ai1wm_completed_timeout', 10 ) ) ) {
-					if ( ( microtime( true ) - $start ) > $timeout ) {
-						$completed = false;
-						break 2;
-					}
-				}
+				if (($timeout = apply_filters('ai1wm_completed_timeout',
+                        10)) && (microtime(true) - $start) > $timeout) {
+                            $completed = false;
+                            break 2;
+                        }
 			} while ( $num_rows > 0 );
 		}
 
@@ -820,14 +815,11 @@ abstract class Ai1wm_Database {
 						$query_offset = ftell( $file_handler );
 
 						// Time elapsed
-						if ( ( $timeout = apply_filters( 'ai1wm_completed_timeout', 10 ) ) ) {
-							if ( ! $this->is_atomic_query( $query ) ) {
-								if ( ( microtime( true ) - $start ) > $timeout ) {
-									$completed = false;
-									break;
-								}
-							}
-						}
+						if (($timeout = apply_filters('ai1wm_completed_timeout',
+                                10)) && ! $this->is_atomic_query($query) && (microtime(true) - $start) > $timeout) {
+                                    $completed = false;
+                                    break;
+                                }
 					}
 
 					$query = null;
@@ -999,7 +991,7 @@ abstract class Ai1wm_Database {
 
 		// Replace first occurance at a specified position
 		if ( $position !== false ) {
-			for ( $i = 0; $i < count( $search ); $i++ ) {
+			for ( $i = 0, $iMax = count($search); $i < $iMax; $i++ ) {
 				$current = stripos( $input, $search[ $i ] );
 				if ( $current === $position ) {
 					$input = substr_replace( $input, $replace[ $i ], $current, strlen( $search[ $i ] ) );
@@ -1027,7 +1019,7 @@ abstract class Ai1wm_Database {
 
 		// Replace first occurance at a specified position
 		if ( $position !== false ) {
-			for ( $i = 0; $i < count( $search ); $i++ ) {
+			for ( $i = 0, $iMax = count($search); $i < $iMax; $i++ ) {
 				$current = stripos( $input, $search[ $i ] );
 				if ( $current === $position ) {
 					$input = substr_replace( $input, $replace[ $i ], $current, strlen( $search[ $i ] ) );

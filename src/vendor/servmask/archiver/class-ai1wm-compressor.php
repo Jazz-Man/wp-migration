@@ -25,11 +25,14 @@
 
 class Ai1wm_Compressor extends Ai1wm_Archiver {
 
-	/**
-	 * Overloaded constructor that opens the passed file for writing
-	 *
-	 * @param string $file_name File to use as archive
-	 */
+    /**
+     * Overloaded constructor that opens the passed file for writing
+     *
+     * @param string $file_name File to use as archive
+     *
+     * @throws \Ai1wm_Not_Accessible_Exception
+     * @throws \Ai1wm_Not_Seekable_Exception
+     */
 	public function __construct( $file_name ) {
 		// Call parent, to initialize variables
 		parent::__construct( $file_name, true );
@@ -69,7 +72,7 @@ class Ai1wm_Compressor extends Ai1wm_Archiver {
 			$file_bytes = 0;
 
 			// Get header block
-			if ( ( $block = $this->get_file_block( $file_name, $new_file_name ) ) ) {
+			if ($block = $this->get_file_block( $file_name, $new_file_name )) {
 
 				// Write header block
 				if ( $file_offset === 0 ) {
@@ -103,12 +106,11 @@ class Ai1wm_Compressor extends Ai1wm_Archiver {
 						}
 
 						// Time elapsed
-						if ( ( $timeout = apply_filters( 'ai1wm_completed_timeout', 10 ) ) ) {
-							if ( ( microtime( true ) - $start ) > $timeout ) {
-								$completed = false;
-								break;
-							}
-						}
+						if (($timeout = apply_filters('ai1wm_completed_timeout',
+                                10)) && (microtime(true) - $start) > $timeout) {
+                                    $completed = false;
+                                    break;
+                                }
 					}
 				}
 
@@ -116,7 +118,7 @@ class Ai1wm_Compressor extends Ai1wm_Archiver {
 				$file_offset += $file_written;
 
 				// Write file size to file header
-				if ( ( $block = $this->get_file_size_block( $file_offset ) ) ) {
+				if ($block = $this->get_file_size_block( $file_offset )) {
 
 					// Seek to beginning of file size
 					if ( @fseek( $this->file_handle, - $file_offset - 4096 - 12 - 14, SEEK_CUR ) === -1 ) {

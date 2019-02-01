@@ -64,14 +64,17 @@ abstract class Ai1wm_Archiver {
 	 */
 	protected $eof = null;
 
-	/**
-	 * Default constructor
-	 *
-	 * Initializes filename and end of file block
-	 *
-	 * @param string $file_name Archive file
-	 * @param bool   $write     Read/write mode
-	 */
+    /**
+     * Default constructor
+     *
+     * Initializes filename and end of file block
+     *
+     * @param string $file_name Archive file
+     * @param bool   $write     Read/write mode
+     *
+     * @throws \Ai1wm_Not_Accessible_Exception
+     * @throws \Ai1wm_Not_Seekable_Exception
+     */
 	public function __construct( $file_name, $write = false ) {
 		$this->file_name = $file_name;
 
@@ -89,12 +92,9 @@ abstract class Ai1wm_Archiver {
 			if ( @fseek( $this->file_handle, 0, SEEK_END ) === -1 ) {
 				throw new Ai1wm_Not_Seekable_Exception( sprintf( 'Unable to seek to end of file. File: %s', $this->file_name ) );
 			}
-		} else {
-			// Open archive file for reading
-			if ( ( $this->file_handle = @fopen( $file_name, 'rb' ) ) === false ) {
-				throw new Ai1wm_Not_Accessible_Exception( sprintf( 'Unable to open file for reading. File: %s', $this->file_name ) );
-			}
-		}
+		} elseif (( $this->file_handle = @fopen( $file_name, 'rb' ) ) === false ) {
+            throw new Ai1wm_Not_Accessible_Exception( sprintf( 'Unable to open file for reading. File: %s', $this->file_name ) );
+        }
 	}
 
 	/**
@@ -191,45 +191,41 @@ abstract class Ai1wm_Archiver {
 	 * @return bool
 	 */
 	public function is_valid() {
-		if ( ( $offset = @ftell( $this->file_handle ) ) !== false ) {
-			if ( @fseek( $this->file_handle, -4377, SEEK_END ) !== -1 ) {
-				if ( @fread( $this->file_handle, 4377 ) === $this->eof ) {
-					if ( @fseek( $this->file_handle, $offset, SEEK_SET ) !== -1 ) {
-						return true;
-					}
-				}
-			}
-		}
+        return (($offset = @ftell($this->file_handle)) !== false) && (@fseek($this->file_handle, -4377,
+                    SEEK_END) !== -1) && (@fread($this->file_handle, 4377) === $this->eof) && @fseek($this->file_handle,
+                $offset, SEEK_SET) !== -1;
+    }
 
-		return false;
-	}
-
-	/**
-	 * Truncates the archive file
-	 *
-	 * @return void
-	 */
+    /**
+     * Truncates the archive file
+     *
+     * @return void
+     * @throws \Ai1wm_Not_Tellable_Exception
+     * @throws \Ai1wm_Not_Truncatable_Exception
+     */
 	public function truncate() {
 		if ( ( $offset = @ftell( $this->file_handle ) ) === false ) {
 			throw new Ai1wm_Not_Tellable_Exception( sprintf( 'Unable to tell offset of file. File: %s', $this->file_name ) );
 		}
 
-		if ( @filesize( $this->file_name ) > $offset ) {
-			if ( @ftruncate( $this->file_handle, $offset ) === false ) {
-				throw new Ai1wm_Not_Truncatable_Exception( sprintf( 'Unable to truncate file. File: %s', $this->file_name ) );
-			}
-		}
-	}
+		if ((@filesize($this->file_name) > $offset) && @ftruncate($this->file_handle, $offset) === false) {
+            throw new Ai1wm_Not_Truncatable_Exception( sprintf( 'Unable to truncate file. File: %s', $this->file_name ) );
+        }
+    }
 
-	/**
-	 * Closes the archive file
-	 *
-	 * We either close the file or append the end of file block if complete argument is set to true
-	 *
-	 * @param  bool $complete Flag to append end of file block
-	 *
-	 * @return void
-	 */
+    /**
+     * Closes the archive file
+     *
+     * We either close the file or append the end of file block if complete argument is set to true
+     *
+     * @param  bool $complete Flag to append end of file block
+     *
+     * @return void
+     * @throws \Ai1wm_Not_Closable_Exception
+     * @throws \Ai1wm_Not_Seekable_Exception
+     * @throws \Ai1wm_Not_Writable_Exception
+     * @throws \Ai1wm_Quota_Exceeded_Exception
+     */
 	public function close( $complete = false ) {
 		// Are we done appending to the file?
 		if ( true === $complete ) {

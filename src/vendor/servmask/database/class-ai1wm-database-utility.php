@@ -78,13 +78,9 @@ class Ai1wm_Database_Utility {
 					$data = $tmp;
 					unset( $tmp );
 				}
-			} else {
-				if ( is_string( $data ) ) {
-					if ( ! empty( $from ) && ! empty( $to ) ) {
-						$data = strtr( $data, array_combine( $from, $to ) );
-					}
-				}
-			}
+			} elseif (is_string($data) && ! empty($from) && ! empty($to)) {
+$data = strtr( $data, array_combine( $from, $to ) );
+}
 
 			if ( $serialized ) {
 				return serialize( $data );

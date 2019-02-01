@@ -25,12 +25,13 @@
 
 class Ai1wm_Database_Mysqli extends Ai1wm_Database {
 
-	/**
-	 * Run MySQL query
-	 *
-	 * @param  string   $input SQL query
-	 * @return resource
-	 */
+    /**
+     * Run MySQL query
+     *
+     * @param  string $input SQL query
+     *
+     * @return bool|\mysqli_result
+     */
 	public function query( $input ) {
 		return mysqli_query( $this->wpdb->dbh, $input, MYSQLI_STORE_RESULT );
 	}
@@ -100,14 +101,14 @@ class Ai1wm_Database_Mysqli extends Ai1wm_Database {
 	 */
 	public function num_rows( $result ) {
 		return mysqli_num_rows( $result );
-	}
+    }
 
-	/**
-	 * Free MySQL result memory
-	 *
-	 * @param  resource $result MySQL resource
-	 * @return boolean
-	 */
+    /**
+     * Free MySQL result memory
+     *
+     * @param  resource $result MySQL resource
+     * @return void
+     */
 	public function free_result( $result ) {
 		return mysqli_free_result( $result );
 	}
