@@ -12,7 +12,7 @@ return static function (RectorConfig $config): void {
 	$config->sets([
 		SetList::CODE_QUALITY,
 //		SetList::CODING_STYLE,
-		LevelSetList::UP_TO_PHP_82,
+//		LevelSetList::UP_TO_PHP_82,
 	]);
 
 
