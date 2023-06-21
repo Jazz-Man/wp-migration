@@ -10,13 +10,13 @@ use Rector\Set\ValueObject\SetList;
 return static function (RectorConfig $config): void {
 
 	$config->sets([
-//		SetList::CODE_QUALITY,
-//		SetList::CODING_STYLE,
-//		SetList::TYPE_DECLARATION,
-//		SetList::EARLY_RETURN,
+		SetList::CODE_QUALITY,
+		SetList::CODING_STYLE,
+		SetList::TYPE_DECLARATION,
+		SetList::EARLY_RETURN,
 //		SetList::NAMING,
 //		SetList::PRIVATIZATION,
-//		LevelSetList::UP_TO_PHP_82,
+		LevelSetList::UP_TO_PHP_82,
 	]);
 
 
@@ -46,10 +46,11 @@ return static function (RectorConfig $config): void {
 		__DIR__.'/wp/wp-includes/fonts',
 		__DIR__.'/wp/wp-includes/images',
 		__DIR__.'/wp/wp-includes/js',
+		__DIR__.'/old-libs',
 	]);
 
     // register a single rule
-	$config->rule(InlineConstructorDefaultToPropertyRector::class);
+//	$config->rule(InlineConstructorDefaultToPropertyRector::class);
 
     // define sets of rules
     //    $rectorConfig->sets([
