@@ -10,8 +10,12 @@ use Rector\Set\ValueObject\SetList;
 return static function (RectorConfig $config): void {
 
 	$config->sets([
-		SetList::CODE_QUALITY,
+//		SetList::CODE_QUALITY,
 //		SetList::CODING_STYLE,
+//		SetList::TYPE_DECLARATION,
+//		SetList::EARLY_RETURN,
+//		SetList::NAMING,
+//		SetList::PRIVATIZATION,
 //		LevelSetList::UP_TO_PHP_82,
 	]);
 
