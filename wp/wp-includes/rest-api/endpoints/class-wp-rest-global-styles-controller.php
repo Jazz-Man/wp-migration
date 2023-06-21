@@ -18,7 +18,7 @@ class WP_REST_Global_Styles_Controller extends WP_REST_Controller {
 	 * @since 5.9.0
 	 * @var string
 	 */
-	protected $post_type;
+	protected $post_type = 'wp_global_styles';
 
 	/**
 	 * Constructor.
@@ -27,7 +27,6 @@ class WP_REST_Global_Styles_Controller extends WP_REST_Controller {
 	public function __construct() {
 		$this->namespace = 'wp/v2';
 		$this->rest_base = 'global-styles';
-		$this->post_type = 'wp_global_styles';
 	}
 
 	/**

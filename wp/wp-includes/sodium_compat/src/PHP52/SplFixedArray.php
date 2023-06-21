@@ -26,7 +26,6 @@ class SplFixedArray implements Iterator, ArrayAccess, Countable
     public function __construct($size = 0)
     {
         $this->size = $size;
-        $this->internalArray = array();
     }
 
     /**

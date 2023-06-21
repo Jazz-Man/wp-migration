@@ -244,13 +244,13 @@ class Iri {
 	}
 
 	/**
-	 * Create a new IRI object, from a specified string
-	 *
-	 * @param string|Stringable|null $iri
-	 *
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed $iri argument is not a string, Stringable or null.
-	 */
-	public function __construct($iri = null) {
+  * Create a new IRI object, from a specified string
+  *
+  * @param string|Stringable|null $iri
+  *
+  * @throws InvalidArgument When the passed $iri argument is not a string, Stringable or null.
+  */
+ public function __construct($iri = null) {
 		if ($iri !== null && InputValidator::is_string_or_stringable($iri) === false) {
 			throw InvalidArgument::create(1, '$iri', 'string|Stringable|null', gettype($iri));
 		}

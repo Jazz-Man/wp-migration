@@ -84,11 +84,11 @@ class ftp_base {
 	/* Public variables */
 	var $LocalEcho;
 	var $Verbose;
-	var $OS_local;
-	var $OS_remote;
+	var $OS_local = FTP_OS_Unix;
+	var $OS_remote = FTP_OS_Unix;
 
 	/* Private variables */
-	var $_lastaction;
+	var $_lastaction = NULL;
 	var $_errors;
 	var $_type;
 	var $_umask;
@@ -102,52 +102,36 @@ class ftp_base {
 	var $_ftp_control_sock;
 	var $_ftp_data_sock;
 	var $_ftp_temp_sock;
-	var $_ftp_buff_size;
-	var $_login;
-	var $_password;
-	var $_connected;
-	var $_ready;
-	var $_code;
-	var $_message;
-	var $_can_restore;
+	var $_ftp_buff_size = 4096;
+	var $_login = "anonymous";
+	var $_password = "anon@ftp.com";
+	var $_connected = FALSE;
+	var $_ready = FALSE;
+	var $_code = 0;
+	var $_message = "";
+	var $_can_restore = FALSE;
 	var $_port_available;
-	var $_curtype;
-	var $_features;
+	var $_curtype = NULL;
+	var $_features = array();
 
-	var $_error_array;
-	var $AuthorizedTransferMode;
+	var $_error_array = array();
+	var $AuthorizedTransferMode = array(FTP_AUTOASCII, FTP_ASCII, FTP_BINARY);
 	var $OS_FullName;
 	var $_eol_code;
-	var $AutoAsciiExt;
+	var $AutoAsciiExt = array("ASP","BAT","C","CPP","CSS","CSV","JS","H","HTM","HTML","SHTML","INI","LOG","PHP3","PHTML","PL","PERL","SH","SQL","TXT");
 
 	/* Constructor */
 	function __construct($port_mode=FALSE, $verb=FALSE, $le=FALSE) {
 		$this->LocalEcho=$le;
 		$this->Verbose=$verb;
-		$this->_lastaction=NULL;
-		$this->_error_array=array();
 		$this->_eol_code=array(FTP_OS_Unix=>"\n", FTP_OS_Mac=>"\r", FTP_OS_Windows=>"\r\n");
-		$this->AuthorizedTransferMode=array(FTP_AUTOASCII, FTP_ASCII, FTP_BINARY);
 		$this->OS_FullName=array(FTP_OS_Unix => 'UNIX', FTP_OS_Windows => 'WINDOWS', FTP_OS_Mac => 'MACOS');
-		$this->AutoAsciiExt=array("ASP","BAT","C","CPP","CSS","CSV","JS","H","HTM","HTML","SHTML","INI","LOG","PHP3","PHTML","PL","PERL","SH","SQL","TXT");
 		$this->_port_available=($port_mode==TRUE);
 		$this->SendMSG("Staring FTP client class".($this->_port_available?"":" without PORT mode support"));
-		$this->_connected=FALSE;
-		$this->_ready=FALSE;
-		$this->_can_restore=FALSE;
-		$this->_code=0;
-		$this->_message="";
-		$this->_ftp_buff_size=4096;
-		$this->_curtype=NULL;
 		$this->SetUmask(0022);
 		$this->SetType(FTP_AUTOASCII);
 		$this->SetTimeout(30);
 		$this->Passive(!$this->_port_available);
-		$this->_login="anonymous";
-		$this->_password="anon@ftp.com";
-		$this->_features=array();
-	    $this->OS_local=FTP_OS_Unix;
-		$this->OS_remote=FTP_OS_Unix;
 		$this->features=array();
 		if(strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') $this->OS_local=FTP_OS_Windows;
 		elseif(strtoupper(substr(PHP_OS, 0, 3)) === 'MAC') $this->OS_local=FTP_OS_Mac;

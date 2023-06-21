@@ -1,4 +1,5 @@
 <?php
+use WpOrg\Requests\Utility\CaseInsensitiveDictionary;
 /**
  * Deprecated functions from past WordPress versions. You shouldn't use these
  * functions and look for the alternatives instead. The functions will be
@@ -3654,7 +3655,7 @@ function post_permalink( $post = 0 ) {
  * @param string|bool $file_path Optional. File path to write request to. Default false.
  * @param int         $red       Optional. The number of Redirects followed, Upon 5 being hit,
  *                               returns false. Default 1.
- * @return \WpOrg\Requests\Utility\CaseInsensitiveDictionary|false Headers on success, false on failure.
+ * @return CaseInsensitiveDictionary|false Headers on success, false on failure.
  */
 function wp_get_http( $url, $file_path = false, $red = 1 ) {
 	_deprecated_function( __FUNCTION__, '4.4.0', 'WP_Http' );

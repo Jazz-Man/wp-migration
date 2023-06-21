@@ -42,15 +42,13 @@
  * @since 2.5.0
  */
 class PasswordHash {
-	var $itoa64;
+	var $itoa64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 	var $iteration_count_log2;
 	var $portable_hashes;
 	var $random_state;
 
 	function __construct($iteration_count_log2, $portable_hashes)
 	{
-		$this->itoa64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-
 		if ($iteration_count_log2 < 4 || $iteration_count_log2 > 31)
 			$iteration_count_log2 = 8;
 		$this->iteration_count_log2 = $iteration_count_log2;

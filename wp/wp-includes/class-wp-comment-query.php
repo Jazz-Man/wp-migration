@@ -88,7 +88,53 @@ class WP_Comment_Query {
 	 * @since 4.2.0
 	 * @var array
 	 */
-	public $query_var_defaults;
+	public $query_var_defaults = array(
+			'author_email'              => '',
+			'author_url'                => '',
+			'author__in'                => '',
+			'author__not_in'            => '',
+			'include_unapproved'        => '',
+			'fields'                    => '',
+			'ID'                        => '',
+			'comment__in'               => '',
+			'comment__not_in'           => '',
+			'karma'                     => '',
+			'number'                    => '',
+			'offset'                    => '',
+			'no_found_rows'             => true,
+			'orderby'                   => '',
+			'order'                     => 'DESC',
+			'paged'                     => 1,
+			'parent'                    => '',
+			'parent__in'                => '',
+			'parent__not_in'            => '',
+			'post_author__in'           => '',
+			'post_author__not_in'       => '',
+			'post_ID'                   => '',
+			'post_id'                   => 0,
+			'post__in'                  => '',
+			'post__not_in'              => '',
+			'post_author'               => '',
+			'post_name'                 => '',
+			'post_parent'               => '',
+			'post_status'               => '',
+			'post_type'                 => '',
+			'status'                    => 'all',
+			'type'                      => '',
+			'type__in'                  => '',
+			'type__not_in'              => '',
+			'user_id'                   => '',
+			'search'                    => '',
+			'count'                     => false,
+			'meta_key'                  => '',
+			'meta_value'                => '',
+			'meta_query'                => '',
+			'date_query'                => null, // See WP_Date_Query.
+			'hierarchical'              => false,
+			'cache_domain'              => 'core',
+			'update_comment_meta_cache' => true,
+			'update_comment_post_cache' => false,
+		);
 
 	/**
 	 * List of comments located by the query.
@@ -271,54 +317,6 @@ class WP_Comment_Query {
 	 * }
 	 */
 	public function __construct( $query = '' ) {
-		$this->query_var_defaults = array(
-			'author_email'              => '',
-			'author_url'                => '',
-			'author__in'                => '',
-			'author__not_in'            => '',
-			'include_unapproved'        => '',
-			'fields'                    => '',
-			'ID'                        => '',
-			'comment__in'               => '',
-			'comment__not_in'           => '',
-			'karma'                     => '',
-			'number'                    => '',
-			'offset'                    => '',
-			'no_found_rows'             => true,
-			'orderby'                   => '',
-			'order'                     => 'DESC',
-			'paged'                     => 1,
-			'parent'                    => '',
-			'parent__in'                => '',
-			'parent__not_in'            => '',
-			'post_author__in'           => '',
-			'post_author__not_in'       => '',
-			'post_ID'                   => '',
-			'post_id'                   => 0,
-			'post__in'                  => '',
-			'post__not_in'              => '',
-			'post_author'               => '',
-			'post_name'                 => '',
-			'post_parent'               => '',
-			'post_status'               => '',
-			'post_type'                 => '',
-			'status'                    => 'all',
-			'type'                      => '',
-			'type__in'                  => '',
-			'type__not_in'              => '',
-			'user_id'                   => '',
-			'search'                    => '',
-			'count'                     => false,
-			'meta_key'                  => '',
-			'meta_value'                => '',
-			'meta_query'                => '',
-			'date_query'                => null, // See WP_Date_Query.
-			'hierarchical'              => false,
-			'cache_domain'              => 'core',
-			'update_comment_meta_cache' => true,
-			'update_comment_post_cache' => false,
-		);
-
 		if ( ! empty( $query ) ) {
 			$this->query( $query );
 		}

@@ -64,19 +64,19 @@ class Session {
 	public $options = [];
 
 	/**
-	 * Create a new session
-	 *
-	 * @param string|Stringable|null $url Base URL for requests
-	 * @param array $headers Default headers for requests
-	 * @param array $data Default data for requests
-	 * @param array $options Default options for requests
-	 *
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed $url argument is not a string, Stringable or null.
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed $headers argument is not an array.
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed $data argument is not an array.
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed $options argument is not an array.
-	 */
-	public function __construct($url = null, $headers = [], $data = [], $options = []) {
+  * Create a new session
+  *
+  * @param string|Stringable|null $url Base URL for requests
+  * @param array $headers Default headers for requests
+  * @param array $data Default data for requests
+  * @param array $options Default options for requests
+  *
+  * @throws InvalidArgument When the passed $url argument is not a string, Stringable or null.
+  * @throws InvalidArgument When the passed $headers argument is not an array.
+  * @throws InvalidArgument When the passed $data argument is not an array.
+  * @throws InvalidArgument When the passed $options argument is not an array.
+  */
+ public function __construct($url = null, $headers = [], $data = [], $options = []) {
 		if ($url !== null && InputValidator::is_string_or_stringable($url) === false) {
 			throw InvalidArgument::create(1, '$url', 'string|Stringable|null', gettype($url));
 		}
@@ -208,43 +208,42 @@ class Session {
 		return $this->request($url, $headers, $data, Requests::PATCH, $options);
 	}
 	/**#@-*/
-
-	/**
-	 * Main interface for HTTP requests
-	 *
-	 * This method initiates a request and sends it via a transport before
-	 * parsing.
-	 *
-	 * @see \WpOrg\Requests\Requests::request()
-	 *
-	 * @param string $url URL to request
-	 * @param array $headers Extra headers to send with the request
-	 * @param array|null $data Data to send either as a query string for GET/HEAD requests, or in the body for POST requests
-	 * @param string $type HTTP request type (use \WpOrg\Requests\Requests constants)
-	 * @param array $options Options for the request (see {@see \WpOrg\Requests\Requests::request()})
-	 * @return \WpOrg\Requests\Response
-	 *
-	 * @throws \WpOrg\Requests\Exception On invalid URLs (`nonhttp`)
-	 */
-	public function request($url, $headers = [], $data = [], $type = Requests::GET, $options = []) {
+ /**
+  * Main interface for HTTP requests
+  *
+  * This method initiates a request and sends it via a transport before
+  * parsing.
+  *
+  * @see \WpOrg\Requests\Requests::request()
+  *
+  * @param string $url URL to request
+  * @param array $headers Extra headers to send with the request
+  * @param array|null $data Data to send either as a query string for GET/HEAD requests, or in the body for POST requests
+  * @param string $type HTTP request type (use \WpOrg\Requests\Requests constants)
+  * @param array $options Options for the request (see {@see \WpOrg\Requests\Requests::request()})
+  * @return Response
+  *
+  * @throws Exception On invalid URLs (`nonhttp`)
+  */
+ public function request($url, $headers = [], $data = [], $type = Requests::GET, $options = []) {
 		$request = $this->merge_request(compact('url', 'headers', 'data', 'options'));
 
 		return Requests::request($request['url'], $request['headers'], $request['data'], $type, $request['options']);
 	}
 
 	/**
-	 * Send multiple HTTP requests simultaneously
-	 *
-	 * @see \WpOrg\Requests\Requests::request_multiple()
-	 *
-	 * @param array $requests Requests data (see {@see \WpOrg\Requests\Requests::request_multiple()})
-	 * @param array $options Global and default options (see {@see \WpOrg\Requests\Requests::request()})
-	 * @return array Responses (either \WpOrg\Requests\Response or a \WpOrg\Requests\Exception object)
-	 *
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed $requests argument is not an array or iterable object with array access.
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed $options argument is not an array.
-	 */
-	public function request_multiple($requests, $options = []) {
+  * Send multiple HTTP requests simultaneously
+  *
+  * @see \WpOrg\Requests\Requests::request_multiple()
+  *
+  * @param array $requests Requests data (see {@see \WpOrg\Requests\Requests::request_multiple()})
+  * @param array $options Global and default options (see {@see \WpOrg\Requests\Requests::request()})
+  * @return array Responses (either \WpOrg\Requests\Response or a \WpOrg\Requests\Exception object)
+  *
+  * @throws InvalidArgument When the passed $requests argument is not an array or iterable object with array access.
+  * @throws InvalidArgument When the passed $options argument is not an array.
+  */
+ public function request_multiple($requests, $options = []) {
 		if (InputValidator::has_array_access($requests) === false || InputValidator::is_iterable($requests) === false) {
 			throw InvalidArgument::create(1, '$requests', 'array|ArrayAccess&Traversable', gettype($requests));
 		}

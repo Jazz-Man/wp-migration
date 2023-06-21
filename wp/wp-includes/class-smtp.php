@@ -1,5 +1,6 @@
 <?php
 
+use PHPMailer\PHPMailer\SMTP;
 /**
  * The SMTP class has been moved to the wp-includes/PHPMailer subdirectory and now uses the PHPMailer\PHPMailer namespace.
  */
@@ -12,4 +13,4 @@ _deprecated_file(
 
 require_once __DIR__ . '/PHPMailer/SMTP.php';
 
-class_alias( PHPMailer\PHPMailer\SMTP::class, 'SMTP' );
+class_alias( SMTP::class, 'SMTP' );

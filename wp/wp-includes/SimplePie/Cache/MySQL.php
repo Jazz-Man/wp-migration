@@ -67,7 +67,17 @@ class SimplePie_Cache_MySQL extends SimplePie_Cache_DB
 	 *
 	 * @var array
 	 */
-	protected $options;
+	protected $options = array(
+			'user' => null,
+			'pass' => null,
+			'host' => '127.0.0.1',
+			'port' => '3306',
+			'path' => '',
+			'extras' => array(
+				'prefix' => '',
+				'cache_purge_time' => 2592000
+			),
+		);
 
 	/**
 	 * Cache ID
@@ -85,18 +95,6 @@ class SimplePie_Cache_MySQL extends SimplePie_Cache_DB
 	 */
 	public function __construct($location, $name, $type)
 	{
-		$this->options = array(
-			'user' => null,
-			'pass' => null,
-			'host' => '127.0.0.1',
-			'port' => '3306',
-			'path' => '',
-			'extras' => array(
-				'prefix' => '',
-				'cache_purge_time' => 2592000
-			),
-		);
-
 		$this->options = SimplePie_Misc::array_merge_recursive($this->options, SimplePie_Cache::parse_URL($location));
 
 		// Path is prefixed with a "/"

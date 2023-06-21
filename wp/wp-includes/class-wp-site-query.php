@@ -78,7 +78,45 @@ class WP_Site_Query {
 	 * @since 4.6.0
 	 * @var array
 	 */
-	public $query_var_defaults;
+	public $query_var_defaults = array(
+			'fields'                 => '',
+			'ID'                     => '',
+			'site__in'               => '',
+			'site__not_in'           => '',
+			'number'                 => 100,
+			'offset'                 => '',
+			'no_found_rows'          => true,
+			'orderby'                => 'id',
+			'order'                  => 'ASC',
+			'network_id'             => 0,
+			'network__in'            => '',
+			'network__not_in'        => '',
+			'domain'                 => '',
+			'domain__in'             => '',
+			'domain__not_in'         => '',
+			'path'                   => '',
+			'path__in'               => '',
+			'path__not_in'           => '',
+			'public'                 => null,
+			'archived'               => null,
+			'mature'                 => null,
+			'spam'                   => null,
+			'deleted'                => null,
+			'lang_id'                => null,
+			'lang__in'               => '',
+			'lang__not_in'           => '',
+			'search'                 => '',
+			'search_columns'         => array(),
+			'count'                  => false,
+			'date_query'             => null, // See WP_Date_Query.
+			'update_site_cache'      => true,
+			'update_site_meta_cache' => true,
+			'meta_query'             => '',
+			'meta_key'               => '',
+			'meta_value'             => '',
+			'meta_type'              => '',
+			'meta_compare'           => '',
+		);
 
 	/**
 	 * List of sites located by the query.
@@ -186,46 +224,6 @@ class WP_Site_Query {
 	 * }
 	 */
 	public function __construct( $query = '' ) {
-		$this->query_var_defaults = array(
-			'fields'                 => '',
-			'ID'                     => '',
-			'site__in'               => '',
-			'site__not_in'           => '',
-			'number'                 => 100,
-			'offset'                 => '',
-			'no_found_rows'          => true,
-			'orderby'                => 'id',
-			'order'                  => 'ASC',
-			'network_id'             => 0,
-			'network__in'            => '',
-			'network__not_in'        => '',
-			'domain'                 => '',
-			'domain__in'             => '',
-			'domain__not_in'         => '',
-			'path'                   => '',
-			'path__in'               => '',
-			'path__not_in'           => '',
-			'public'                 => null,
-			'archived'               => null,
-			'mature'                 => null,
-			'spam'                   => null,
-			'deleted'                => null,
-			'lang_id'                => null,
-			'lang__in'               => '',
-			'lang__not_in'           => '',
-			'search'                 => '',
-			'search_columns'         => array(),
-			'count'                  => false,
-			'date_query'             => null, // See WP_Date_Query.
-			'update_site_cache'      => true,
-			'update_site_meta_cache' => true,
-			'meta_query'             => '',
-			'meta_key'               => '',
-			'meta_value'             => '',
-			'meta_type'              => '',
-			'meta_compare'           => '',
-		);
-
 		if ( ! empty( $query ) ) {
 			$this->query( $query );
 		}

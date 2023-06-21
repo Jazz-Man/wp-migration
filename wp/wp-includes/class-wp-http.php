@@ -1,4 +1,11 @@
 <?php
+use WpOrg\Requests\Autoload;
+use WpOrg\Requests\Requests;
+use WpOrg\Requests\Proxy\Http;
+use WpOrg\Requests\Exception;
+use WpOrg\Requests\Cookie\Jar;
+use WpOrg\Requests\Cookie;
+use WpOrg\Requests\Response;
 /**
  * HTTP API: WP_Http class
  *
@@ -10,8 +17,8 @@
 if ( ! class_exists( 'WpOrg\Requests\Autoload' ) ) {
 	require ABSPATH . WPINC . '/Requests/src/Autoload.php';
 
-	WpOrg\Requests\Autoload::register();
-	WpOrg\Requests\Requests::set_certificate_path( ABSPATH . WPINC . '/certificates/ca-bundle.crt' );
+	Autoload::register();
+	Requests::set_certificate_path( ABSPATH . WPINC . '/certificates/ca-bundle.crt' );
 }
 
 /**
@@ -380,7 +387,7 @@ class WP_Http {
 		// Check for proxies.
 		$proxy = new WP_HTTP_Proxy();
 		if ( $proxy->is_enabled() && $proxy->send_through_proxy( $url ) ) {
-			$options['proxy'] = new WpOrg\Requests\Proxy\Http( $proxy->host() . ':' . $proxy->port() );
+			$options['proxy'] = new Http( $proxy->host() . ':' . $proxy->port() );
 
 			if ( $proxy->use_authentication() ) {
 				$options['proxy']->use_authentication = true;
@@ -393,7 +400,7 @@ class WP_Http {
 		mbstring_binary_safe_encoding();
 
 		try {
-			$requests_response = WpOrg\Requests\Requests::request( $url, $headers, $data, $type, $options );
+			$requests_response = Requests::request( $url, $headers, $data, $type, $options );
 
 			// Convert the response into an array.
 			$http_response = new WP_HTTP_Requests_Response( $requests_response, $parsed_args['filename'] );
@@ -401,7 +408,7 @@ class WP_Http {
 
 			// Add the original object to the array.
 			$response['http_response'] = $http_response;
-		} catch ( WpOrg\Requests\Exception $e ) {
+		} catch ( Exception $e ) {
 			$response = new WP_Error( 'http_request_failed', $e->getMessage() );
 		}
 
@@ -449,15 +456,15 @@ class WP_Http {
 	}
 
 	/**
-	 * Normalizes cookies for using in Requests.
-	 *
-	 * @since 4.6.0
-	 *
-	 * @param array $cookies Array of cookies to send with the request.
-	 * @return WpOrg\Requests\Cookie\Jar Cookie holder object.
-	 */
-	public static function normalize_cookies( $cookies ) {
-		$cookie_jar = new WpOrg\Requests\Cookie\Jar();
+  * Normalizes cookies for using in Requests.
+  *
+  * @since 4.6.0
+  *
+  * @param array $cookies Array of cookies to send with the request.
+  * @return Jar Cookie holder object.
+  */
+ public static function normalize_cookies( $cookies ) {
+		$cookie_jar = new Jar();
 
 		foreach ( $cookies as $name => $value ) {
 			if ( $value instanceof WP_Http_Cookie ) {
@@ -467,9 +474,9 @@ class WP_Http {
 						return null !== $attr;
 					}
 				);
-				$cookie_jar[ $value->name ] = new WpOrg\Requests\Cookie( $value->name, $value->value, $attributes, array( 'host-only' => $value->host_only ) );
+				$cookie_jar[ $value->name ] = new Cookie( $value->name, $value->value, $attributes, array( 'host-only' => $value->host_only ) );
 			} elseif ( is_scalar( $value ) ) {
-				$cookie_jar[ $name ] = new WpOrg\Requests\Cookie( $name, (string) $value );
+				$cookie_jar[ $name ] = new Cookie( $name, (string) $value );
 			}
 		}
 
@@ -477,38 +484,38 @@ class WP_Http {
 	}
 
 	/**
-	 * Match redirect behavior to browser handling.
-	 *
-	 * Changes 302 redirects from POST to GET to match browser handling. Per
-	 * RFC 7231, user agents can deviate from the strict reading of the
-	 * specification for compatibility purposes.
-	 *
-	 * @since 4.6.0
-	 *
-	 * @param string                  $location URL to redirect to.
-	 * @param array                   $headers  Headers for the redirect.
-	 * @param string|array            $data     Body to send with the request.
-	 * @param array                   $options  Redirect request options.
-	 * @param WpOrg\Requests\Response $original Response object.
-	 */
-	public static function browser_redirect_compatibility( $location, $headers, $data, &$options, $original ) {
+  * Match redirect behavior to browser handling.
+  *
+  * Changes 302 redirects from POST to GET to match browser handling. Per
+  * RFC 7231, user agents can deviate from the strict reading of the
+  * specification for compatibility purposes.
+  *
+  * @since 4.6.0
+  *
+  * @param string                  $location URL to redirect to.
+  * @param array                   $headers  Headers for the redirect.
+  * @param string|array            $data     Body to send with the request.
+  * @param array                   $options  Redirect request options.
+  * @param Response $original Response object.
+  */
+ public static function browser_redirect_compatibility( $location, $headers, $data, &$options, $original ) {
 		// Browser compatibility.
 		if ( 302 === $original->status_code ) {
-			$options['type'] = WpOrg\Requests\Requests::GET;
+			$options['type'] = Requests::GET;
 		}
 	}
 
 	/**
-	 * Validate redirected URLs.
-	 *
-	 * @since 4.7.5
-	 *
-	 * @throws WpOrg\Requests\Exception On unsuccessful URL validation.
-	 * @param string $location URL to redirect to.
-	 */
-	public static function validate_redirects( $location ) {
+  * Validate redirected URLs.
+  *
+  * @since 4.7.5
+  *
+  * @throws Exception On unsuccessful URL validation.
+  * @param string $location URL to redirect to.
+  */
+ public static function validate_redirects( $location ) {
 		if ( ! wp_http_validate_url( $location ) ) {
-			throw new WpOrg\Requests\Exception( __( 'A valid URL was not provided.' ), 'wp_http.redirect_failed_validation' );
+			throw new Exception( __( 'A valid URL was not provided.' ), 'wp_http.redirect_failed_validation' );
 		}
 	}
 

@@ -1,4 +1,6 @@
 <?php
+
+use function Sodium\randombytes_buf;
 /**
  * Random_* Compatibility Library
  * for using the new PHP 7 random_* API in PHP 5 projects
@@ -25,7 +27,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 if (!is_callable('random_bytes')) {
     /**
      * If the libsodium PHP extension is loaded, we'll use it above any other
@@ -68,11 +69,11 @@ if (!is_callable('random_bytes')) {
                 $n = ($bytes - $i) > 1073741824
                     ? 1073741824
                     : $bytes - $i;
-                $buf .= \Sodium\randombytes_buf($n);
+                $buf .= randombytes_buf($n);
             }
         } else {
             /** @var string|bool $buf */
-            $buf = \Sodium\randombytes_buf($bytes);
+            $buf = randombytes_buf($bytes);
         }
 
         if (is_string($buf)) {

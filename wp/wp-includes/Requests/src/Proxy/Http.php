@@ -53,18 +53,18 @@ final class Http implements Proxy {
 	public $use_authentication;
 
 	/**
-	 * Constructor
-	 *
-	 * @since 1.6
-	 *
-	 * @param array|string|null $args Proxy as a string or an array of proxy, user and password.
-	 *                                When passed as an array, must have exactly one (proxy)
-	 *                                or three elements (proxy, user, password).
-	 *
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed argument is not an array, a string or null.
-	 * @throws \WpOrg\Requests\Exception\ArgumentCount On incorrect number of arguments (`proxyhttpbadargs`)
-	 */
-	public function __construct($args = null) {
+  * Constructor
+  *
+  * @since 1.6
+  *
+  * @param array|string|null $args Proxy as a string or an array of proxy, user and password.
+  *                                When passed as an array, must have exactly one (proxy)
+  *                                or three elements (proxy, user, password).
+  *
+  * @throws InvalidArgument When the passed argument is not an array, a string or null.
+  * @throws ArgumentCount On incorrect number of arguments (`proxyhttpbadargs`)
+  */
+ public function __construct($args = null) {
 		if (is_string($args)) {
 			$this->proxy = $args;
 		} elseif (is_array($args)) {
@@ -86,16 +86,16 @@ final class Http implements Proxy {
 	}
 
 	/**
-	 * Register the necessary callbacks
-	 *
-	 * @since 1.6
-	 * @see \WpOrg\Requests\Proxy\Http::curl_before_send()
-	 * @see \WpOrg\Requests\Proxy\Http::fsockopen_remote_socket()
-	 * @see \WpOrg\Requests\Proxy\Http::fsockopen_remote_host_path()
-	 * @see \WpOrg\Requests\Proxy\Http::fsockopen_header()
-	 * @param \WpOrg\Requests\Hooks $hooks Hook system
-	 */
-	public function register(Hooks $hooks) {
+  * Register the necessary callbacks
+  *
+  * @since 1.6
+  * @see \WpOrg\Requests\Proxy\Http::curl_before_send()
+  * @see \WpOrg\Requests\Proxy\Http::fsockopen_remote_socket()
+  * @see \WpOrg\Requests\Proxy\Http::fsockopen_remote_host_path()
+  * @see \WpOrg\Requests\Proxy\Http::fsockopen_header()
+  * @param Hooks $hooks Hook system
+  */
+ public function register(Hooks $hooks) {
 		$hooks->register('curl.before_send', [$this, 'curl_before_send']);
 
 		$hooks->register('fsockopen.remote_socket', [$this, 'fsockopen_remote_socket']);

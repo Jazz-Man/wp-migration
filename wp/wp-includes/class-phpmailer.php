@@ -1,5 +1,7 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 /**
  * The PHPMailer class has been moved to the wp-includes/PHPMailer subdirectory and now uses the PHPMailer\PHPMailer namespace.
  */
@@ -15,5 +17,5 @@ if ( function_exists( '_deprecated_file' ) ) {
 require_once __DIR__ . '/PHPMailer/PHPMailer.php';
 require_once __DIR__ . '/PHPMailer/Exception.php';
 
-class_alias( PHPMailer\PHPMailer\PHPMailer::class, 'PHPMailer' );
-class_alias( PHPMailer\PHPMailer\Exception::class, 'phpmailerException' );
+class_alias( PHPMailer::class, 'PHPMailer' );
+class_alias( Exception::class, 'phpmailerException' );

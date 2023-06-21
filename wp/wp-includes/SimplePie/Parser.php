@@ -1,4 +1,7 @@
 <?php
+
+use function Mf2\parse;
+use function Mf2\fetch;
 /**
  * SimplePie
  *
@@ -40,7 +43,6 @@
  * @link http://simplepie.org/ SimplePie
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
-
 /**
  * Parses XML into something sane
  *
@@ -462,7 +464,7 @@ class SimplePie_Parser
 		$author_cache = array();
 		$items = array();
 		$entries = array();
-		$mf = Mf2\parse($data, $url);
+		$mf = parse($data, $url);
 		// First look for an h-feed.
 		$h_feed = array();
 		foreach ($mf['items'] as $mf_item) {
@@ -535,7 +537,7 @@ class SimplePie_Parser
 							$author = $author_cache[$author];
 						}
 						else {
-							$mf = Mf2\fetch($author);
+							$mf = fetch($author);
 							foreach ($mf['items'] as $hcard) {
 								// Only interested in an h-card by itself in this case.
 								if (!in_array('h-card', $hcard['type'])) {

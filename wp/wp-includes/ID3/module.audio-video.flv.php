@@ -430,14 +430,13 @@ class AMFStream
 	/**
 	 * @var int
 	 */
-	public $pos;
+	public $pos = 0;
 
 	/**
 	 * @param string $bytes
 	 */
 	public function __construct(&$bytes) {
 		$this->bytes =& $bytes;
-		$this->pos = 0;
 	}
 
 	/**

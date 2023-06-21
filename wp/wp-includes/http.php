@@ -1,4 +1,5 @@
 <?php
+use WpOrg\Requests\Utility\CaseInsensitiveDictionary;
 /**
  * Core HTTP Request API
  *
@@ -197,17 +198,17 @@ function wp_remote_head( $url, $args = array() ) {
 }
 
 /**
- * Retrieve only the headers from the raw response.
- *
- * @since 2.7.0
- * @since 4.6.0 Return value changed from an array to an WpOrg\Requests\Utility\CaseInsensitiveDictionary instance.
- *
- * @see \WpOrg\Requests\Utility\CaseInsensitiveDictionary
- *
- * @param array|WP_Error $response HTTP response.
- * @return \WpOrg\Requests\Utility\CaseInsensitiveDictionary|array The headers of the response, or empty array
- *                                                                 if incorrect parameter given.
- */
+* Retrieve only the headers from the raw response.
+*
+* @since 2.7.0
+* @since 4.6.0 Return value changed from an array to an WpOrg\Requests\Utility\CaseInsensitiveDictionary instance.
+*
+* @see \WpOrg\Requests\Utility\CaseInsensitiveDictionary
+*
+* @param array|WP_Error $response HTTP response.
+* @return CaseInsensitiveDictionary|array The headers of the response, or empty array
+                                                               if incorrect parameter given.
+*/
 function wp_remote_retrieve_headers( $response ) {
 	if ( is_wp_error( $response ) || ! isset( $response['headers'] ) ) {
 		return array();

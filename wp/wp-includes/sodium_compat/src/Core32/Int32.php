@@ -38,7 +38,6 @@ class ParagonIE_Sodium_Core32_Int32
             (int) $array[0],
             (int) $array[1]
         );
-        $this->overflow = 0;
         $this->unsignedInt = $unsignedInt;
     }
 

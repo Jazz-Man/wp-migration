@@ -259,13 +259,13 @@ class Requests {
 	}
 
 	/**
-	 * Get a working transport.
-	 *
-	 * @param array<string, bool> $capabilities Optional. Associative array of capabilities to test against, i.e. `['<capability>' => true]`.
-	 * @return \WpOrg\Requests\Transport
-	 * @throws \WpOrg\Requests\Exception If no valid transport is found (`notransport`).
-	 */
-	protected static function get_transport(array $capabilities = []) {
+  * Get a working transport.
+  *
+  * @param array<string, bool> $capabilities Optional. Associative array of capabilities to test against, i.e. `['<capability>' => true]`.
+  * @return Transport
+  * @throws Exception If no valid transport is found (`notransport`).
+  */
+ protected static function get_transport(array $capabilities = []) {
 		$class = self::get_transport_class($capabilities);
 
 		if ($class === '') {
@@ -367,71 +367,70 @@ class Requests {
 		return self::request($url, $headers, $data, self::PATCH, $options);
 	}
 	/**#@-*/
-
-	/**
-	 * Main interface for HTTP requests
-	 *
-	 * This method initiates a request and sends it via a transport before
-	 * parsing.
-	 *
-	 * The `$options` parameter takes an associative array with the following
-	 * options:
-	 *
-	 * - `timeout`: How long should we wait for a response?
-	 *    Note: for cURL, a minimum of 1 second applies, as DNS resolution
-	 *    operates at second-resolution only.
-	 *    (float, seconds with a millisecond precision, default: 10, example: 0.01)
-	 * - `connect_timeout`: How long should we wait while trying to connect?
-	 *    (float, seconds with a millisecond precision, default: 10, example: 0.01)
-	 * - `useragent`: Useragent to send to the server
-	 *    (string, default: php-requests/$version)
-	 * - `follow_redirects`: Should we follow 3xx redirects?
-	 *    (boolean, default: true)
-	 * - `redirects`: How many times should we redirect before erroring?
-	 *    (integer, default: 10)
-	 * - `blocking`: Should we block processing on this request?
-	 *    (boolean, default: true)
-	 * - `filename`: File to stream the body to instead.
-	 *    (string|boolean, default: false)
-	 * - `auth`: Authentication handler or array of user/password details to use
-	 *    for Basic authentication
-	 *    (\WpOrg\Requests\Auth|array|boolean, default: false)
-	 * - `proxy`: Proxy details to use for proxy by-passing and authentication
-	 *    (\WpOrg\Requests\Proxy|array|string|boolean, default: false)
-	 * - `max_bytes`: Limit for the response body size.
-	 *    (integer|boolean, default: false)
-	 * - `idn`: Enable IDN parsing
-	 *    (boolean, default: true)
-	 * - `transport`: Custom transport. Either a class name, or a
-	 *    transport object. Defaults to the first working transport from
-	 *    {@see \WpOrg\Requests\Requests::getTransport()}
-	 *    (string|\WpOrg\Requests\Transport, default: {@see \WpOrg\Requests\Requests::getTransport()})
-	 * - `hooks`: Hooks handler.
-	 *    (\WpOrg\Requests\HookManager, default: new WpOrg\Requests\Hooks())
-	 * - `verify`: Should we verify SSL certificates? Allows passing in a custom
-	 *    certificate file as a string. (Using true uses the system-wide root
-	 *    certificate store instead, but this may have different behaviour
-	 *    across transports.)
-	 *    (string|boolean, default: certificates/cacert.pem)
-	 * - `verifyname`: Should we verify the common name in the SSL certificate?
-	 *    (boolean, default: true)
-	 * - `data_format`: How should we send the `$data` parameter?
-	 *    (string, one of 'query' or 'body', default: 'query' for
-	 *    HEAD/GET/DELETE, 'body' for POST/PUT/OPTIONS/PATCH)
-	 *
-	 * @param string|Stringable $url URL to request
-	 * @param array $headers Extra headers to send with the request
-	 * @param array|null $data Data to send either as a query string for GET/HEAD requests, or in the body for POST requests
-	 * @param string $type HTTP request type (use Requests constants)
-	 * @param array $options Options for the request (see description for more information)
-	 * @return \WpOrg\Requests\Response
-	 *
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed $url argument is not a string or Stringable.
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed $type argument is not a string.
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed $options argument is not an array.
-	 * @throws \WpOrg\Requests\Exception On invalid URLs (`nonhttp`)
-	 */
-	public static function request($url, $headers = [], $data = [], $type = self::GET, $options = []) {
+ /**
+  * Main interface for HTTP requests
+  *
+  * This method initiates a request and sends it via a transport before
+  * parsing.
+  *
+  * The `$options` parameter takes an associative array with the following
+  * options:
+  *
+  * - `timeout`: How long should we wait for a response?
+  *    Note: for cURL, a minimum of 1 second applies, as DNS resolution
+  *    operates at second-resolution only.
+  *    (float, seconds with a millisecond precision, default: 10, example: 0.01)
+  * - `connect_timeout`: How long should we wait while trying to connect?
+  *    (float, seconds with a millisecond precision, default: 10, example: 0.01)
+  * - `useragent`: Useragent to send to the server
+  *    (string, default: php-requests/$version)
+  * - `follow_redirects`: Should we follow 3xx redirects?
+  *    (boolean, default: true)
+  * - `redirects`: How many times should we redirect before erroring?
+  *    (integer, default: 10)
+  * - `blocking`: Should we block processing on this request?
+  *    (boolean, default: true)
+  * - `filename`: File to stream the body to instead.
+  *    (string|boolean, default: false)
+  * - `auth`: Authentication handler or array of user/password details to use
+  *    for Basic authentication
+  *    (\WpOrg\Requests\Auth|array|boolean, default: false)
+  * - `proxy`: Proxy details to use for proxy by-passing and authentication
+  *    (\WpOrg\Requests\Proxy|array|string|boolean, default: false)
+  * - `max_bytes`: Limit for the response body size.
+  *    (integer|boolean, default: false)
+  * - `idn`: Enable IDN parsing
+  *    (boolean, default: true)
+  * - `transport`: Custom transport. Either a class name, or a
+  *    transport object. Defaults to the first working transport from
+  *    {@see \WpOrg\Requests\Requests::getTransport()}
+  *    (string|\WpOrg\Requests\Transport, default: {@see \WpOrg\Requests\Requests::getTransport()})
+  * - `hooks`: Hooks handler.
+  *    (\WpOrg\Requests\HookManager, default: new WpOrg\Requests\Hooks())
+  * - `verify`: Should we verify SSL certificates? Allows passing in a custom
+  *    certificate file as a string. (Using true uses the system-wide root
+  *    certificate store instead, but this may have different behaviour
+  *    across transports.)
+  *    (string|boolean, default: certificates/cacert.pem)
+  * - `verifyname`: Should we verify the common name in the SSL certificate?
+  *    (boolean, default: true)
+  * - `data_format`: How should we send the `$data` parameter?
+  *    (string, one of 'query' or 'body', default: 'query' for
+  *    HEAD/GET/DELETE, 'body' for POST/PUT/OPTIONS/PATCH)
+  *
+  * @param string|Stringable $url URL to request
+  * @param array $headers Extra headers to send with the request
+  * @param array|null $data Data to send either as a query string for GET/HEAD requests, or in the body for POST requests
+  * @param string $type HTTP request type (use Requests constants)
+  * @param array $options Options for the request (see description for more information)
+  * @return Response
+  *
+  * @throws InvalidArgument When the passed $url argument is not a string or Stringable.
+  * @throws InvalidArgument When the passed $type argument is not a string.
+  * @throws InvalidArgument When the passed $options argument is not an array.
+  * @throws Exception On invalid URLs (`nonhttp`)
+  */
+ public static function request($url, $headers = [], $data = [], $type = self::GET, $options = []) {
 		if (InputValidator::is_string_or_stringable($url) === false) {
 			throw InvalidArgument::create(1, '$url', 'string|Stringable', gettype($url));
 		}
@@ -474,50 +473,50 @@ class Requests {
 	}
 
 	/**
-	 * Send multiple HTTP requests simultaneously
-	 *
-	 * The `$requests` parameter takes an associative or indexed array of
-	 * request fields. The key of each request can be used to match up the
-	 * request with the returned data, or with the request passed into your
-	 * `multiple.request.complete` callback.
-	 *
-	 * The request fields value is an associative array with the following keys:
-	 *
-	 * - `url`: Request URL Same as the `$url` parameter to
-	 *    {@see \WpOrg\Requests\Requests::request()}
-	 *    (string, required)
-	 * - `headers`: Associative array of header fields. Same as the `$headers`
-	 *    parameter to {@see \WpOrg\Requests\Requests::request()}
-	 *    (array, default: `array()`)
-	 * - `data`: Associative array of data fields or a string. Same as the
-	 *    `$data` parameter to {@see \WpOrg\Requests\Requests::request()}
-	 *    (array|string, default: `array()`)
-	 * - `type`: HTTP request type (use \WpOrg\Requests\Requests constants). Same as the `$type`
-	 *    parameter to {@see \WpOrg\Requests\Requests::request()}
-	 *    (string, default: `\WpOrg\Requests\Requests::GET`)
-	 * - `cookies`: Associative array of cookie name to value, or cookie jar.
-	 *    (array|\WpOrg\Requests\Cookie\Jar)
-	 *
-	 * If the `$options` parameter is specified, individual requests will
-	 * inherit options from it. This can be used to use a single hooking system,
-	 * or set all the types to `\WpOrg\Requests\Requests::POST`, for example.
-	 *
-	 * In addition, the `$options` parameter takes the following global options:
-	 *
-	 * - `complete`: A callback for when a request is complete. Takes two
-	 *    parameters, a \WpOrg\Requests\Response/\WpOrg\Requests\Exception reference, and the
-	 *    ID from the request array (Note: this can also be overridden on a
-	 *    per-request basis, although that's a little silly)
-	 *    (callback)
-	 *
-	 * @param array $requests Requests data (see description for more information)
-	 * @param array $options Global and default options (see {@see \WpOrg\Requests\Requests::request()})
-	 * @return array Responses (either \WpOrg\Requests\Response or a \WpOrg\Requests\Exception object)
-	 *
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed $requests argument is not an array or iterable object with array access.
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed $options argument is not an array.
-	 */
-	public static function request_multiple($requests, $options = []) {
+  * Send multiple HTTP requests simultaneously
+  *
+  * The `$requests` parameter takes an associative or indexed array of
+  * request fields. The key of each request can be used to match up the
+  * request with the returned data, or with the request passed into your
+  * `multiple.request.complete` callback.
+  *
+  * The request fields value is an associative array with the following keys:
+  *
+  * - `url`: Request URL Same as the `$url` parameter to
+  *    {@see \WpOrg\Requests\Requests::request()}
+  *    (string, required)
+  * - `headers`: Associative array of header fields. Same as the `$headers`
+  *    parameter to {@see \WpOrg\Requests\Requests::request()}
+  *    (array, default: `array()`)
+  * - `data`: Associative array of data fields or a string. Same as the
+  *    `$data` parameter to {@see \WpOrg\Requests\Requests::request()}
+  *    (array|string, default: `array()`)
+  * - `type`: HTTP request type (use \WpOrg\Requests\Requests constants). Same as the `$type`
+  *    parameter to {@see \WpOrg\Requests\Requests::request()}
+  *    (string, default: `\WpOrg\Requests\Requests::GET`)
+  * - `cookies`: Associative array of cookie name to value, or cookie jar.
+  *    (array|\WpOrg\Requests\Cookie\Jar)
+  *
+  * If the `$options` parameter is specified, individual requests will
+  * inherit options from it. This can be used to use a single hooking system,
+  * or set all the types to `\WpOrg\Requests\Requests::POST`, for example.
+  *
+  * In addition, the `$options` parameter takes the following global options:
+  *
+  * - `complete`: A callback for when a request is complete. Takes two
+  *    parameters, a \WpOrg\Requests\Response/\WpOrg\Requests\Exception reference, and the
+  *    ID from the request array (Note: this can also be overridden on a
+  *    per-request basis, although that's a little silly)
+  *    (callback)
+  *
+  * @param array $requests Requests data (see description for more information)
+  * @param array $options Global and default options (see {@see \WpOrg\Requests\Requests::request()})
+  * @return array Responses (either \WpOrg\Requests\Response or a \WpOrg\Requests\Exception object)
+  *
+  * @throws InvalidArgument When the passed $requests argument is not an array or iterable object with array access.
+  * @throws InvalidArgument When the passed $options argument is not an array.
+  */
+ public static function request_multiple($requests, $options = []) {
 		if (InputValidator::has_array_access($requests) === false || InputValidator::is_iterable($requests) === false) {
 			throw InvalidArgument::create(1, '$requests', 'array|ArrayAccess&Traversable', gettype($requests));
 		}
@@ -625,13 +624,13 @@ class Requests {
 	}
 
 	/**
-	 * Set default certificate path.
-	 *
-	 * @param string|Stringable|bool $path Certificate path, pointing to a PEM file.
-	 *
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed $url argument is not a string, Stringable or boolean.
-	 */
-	public static function set_certificate_path($path) {
+  * Set default certificate path.
+  *
+  * @param string|Stringable|bool $path Certificate path, pointing to a PEM file.
+  *
+  * @throws InvalidArgument When the passed $url argument is not a string, Stringable or boolean.
+  */
+ public static function set_certificate_path($path) {
 		if (InputValidator::is_string_or_stringable($path) === false && is_bool($path) === false) {
 			throw InvalidArgument::create(1, '$path', 'string|Stringable|bool', gettype($path));
 		}
@@ -640,18 +639,18 @@ class Requests {
 	}
 
 	/**
-	 * Set the default values
-	 *
-	 * @param string $url URL to request
-	 * @param array $headers Extra headers to send with the request
-	 * @param array|null $data Data to send either as a query string for GET/HEAD requests, or in the body for POST requests
-	 * @param string $type HTTP request type
-	 * @param array $options Options for the request
-	 * @return void $options is updated with the results
-	 *
-	 * @throws \WpOrg\Requests\Exception When the $url is not an http(s) URL.
-	 */
-	protected static function set_defaults(&$url, &$headers, &$data, &$type, &$options) {
+  * Set the default values
+  *
+  * @param string $url URL to request
+  * @param array $headers Extra headers to send with the request
+  * @param array|null $data Data to send either as a query string for GET/HEAD requests, or in the body for POST requests
+  * @param string $type HTTP request type
+  * @param array $options Options for the request
+  * @return void $options is updated with the results
+  *
+  * @throws Exception When the $url is not an http(s) URL.
+  */
+ protected static function set_defaults(&$url, &$headers, &$data, &$type, &$options) {
 		if (!preg_match('/^http(s)?:\/\//i', $url, $matches)) {
 			throw new Exception('Only HTTP(S) requests are handled.', 'nonhttp', $url);
 		}
@@ -705,20 +704,20 @@ class Requests {
 	}
 
 	/**
-	 * HTTP response parser
-	 *
-	 * @param string $headers Full response text including headers and body
-	 * @param string $url Original request URL
-	 * @param array $req_headers Original $headers array passed to {@link request()}, in case we need to follow redirects
-	 * @param array $req_data Original $data array passed to {@link request()}, in case we need to follow redirects
-	 * @param array $options Original $options array passed to {@link request()}, in case we need to follow redirects
-	 * @return \WpOrg\Requests\Response
-	 *
-	 * @throws \WpOrg\Requests\Exception On missing head/body separator (`requests.no_crlf_separator`)
-	 * @throws \WpOrg\Requests\Exception On missing head/body separator (`noversion`)
-	 * @throws \WpOrg\Requests\Exception On missing head/body separator (`toomanyredirects`)
-	 */
-	protected static function parse_response($headers, $url, $req_headers, $req_data, $options) {
+  * HTTP response parser
+  *
+  * @param string $headers Full response text including headers and body
+  * @param string $url Original request URL
+  * @param array $req_headers Original $headers array passed to {@link request()}, in case we need to follow redirects
+  * @param array $req_data Original $data array passed to {@link request()}, in case we need to follow redirects
+  * @param array $options Original $options array passed to {@link request()}, in case we need to follow redirects
+  * @return Response
+  *
+  * @throws Exception On missing head/body separator (`requests.no_crlf_separator`)
+  * @throws Exception On missing head/body separator (`noversion`)
+  * @throws Exception On missing head/body separator (`toomanyredirects`)
+  */
+ protected static function parse_response($headers, $url, $req_headers, $req_data, $options) {
 		$return = new Response();
 		if (!$options['blocking']) {
 			return $return;
@@ -881,16 +880,15 @@ class Requests {
 		// @codeCoverageIgnoreStart
 	}
 	// @codeCoverageIgnoreEnd
-
-	/**
-	 * Convert a key => value array to a 'key: value' array for headers
-	 *
-	 * @param iterable $dictionary Dictionary of header values
-	 * @return array List of headers
-	 *
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed argument is not iterable.
-	 */
-	public static function flatten($dictionary) {
+ /**
+  * Convert a key => value array to a 'key: value' array for headers
+  *
+  * @param iterable $dictionary Dictionary of header values
+  * @return array List of headers
+  *
+  * @throws InvalidArgument When the passed argument is not iterable.
+  */
+ public static function flatten($dictionary) {
 		if (InputValidator::is_iterable($dictionary) === false) {
 			throw InvalidArgument::create(1, '$dictionary', 'iterable', gettype($dictionary));
 		}
@@ -904,17 +902,17 @@ class Requests {
 	}
 
 	/**
-	 * Decompress an encoded body
-	 *
-	 * Implements gzip, compress and deflate. Guesses which it is by attempting
-	 * to decode.
-	 *
-	 * @param string $data Compressed data in one of the above formats
-	 * @return string Decompressed string
-	 *
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed argument is not a string.
-	 */
-	public static function decompress($data) {
+  * Decompress an encoded body
+  *
+  * Implements gzip, compress and deflate. Guesses which it is by attempting
+  * to decode.
+  *
+  * @param string $data Compressed data in one of the above formats
+  * @return string Decompressed string
+  *
+  * @throws InvalidArgument When the passed argument is not a string.
+  */
+ public static function decompress($data) {
 		if (is_string($data) === false) {
 			throw InvalidArgument::create(1, '$data', 'string', gettype($data));
 		}
@@ -960,28 +958,28 @@ class Requests {
 	}
 
 	/**
-	 * Decompression of deflated string while staying compatible with the majority of servers.
-	 *
-	 * Certain Servers will return deflated data with headers which PHP's gzinflate()
-	 * function cannot handle out of the box. The following function has been created from
-	 * various snippets on the gzinflate() PHP documentation.
-	 *
-	 * Warning: Magic numbers within. Due to the potential different formats that the compressed
-	 * data may be returned in, some "magic offsets" are needed to ensure proper decompression
-	 * takes place. For a simple progmatic way to determine the magic offset in use, see:
-	 * https://core.trac.wordpress.org/ticket/18273
-	 *
-	 * @since 1.6.0
-	 * @link https://core.trac.wordpress.org/ticket/18273
-	 * @link https://www.php.net/gzinflate#70875
-	 * @link https://www.php.net/gzinflate#77336
-	 *
-	 * @param string $gz_data String to decompress.
-	 * @return string|bool False on failure.
-	 *
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed argument is not a string.
-	 */
-	public static function compatible_gzinflate($gz_data) {
+  * Decompression of deflated string while staying compatible with the majority of servers.
+  *
+  * Certain Servers will return deflated data with headers which PHP's gzinflate()
+  * function cannot handle out of the box. The following function has been created from
+  * various snippets on the gzinflate() PHP documentation.
+  *
+  * Warning: Magic numbers within. Due to the potential different formats that the compressed
+  * data may be returned in, some "magic offsets" are needed to ensure proper decompression
+  * takes place. For a simple progmatic way to determine the magic offset in use, see:
+  * https://core.trac.wordpress.org/ticket/18273
+  *
+  * @since 1.6.0
+  * @link https://core.trac.wordpress.org/ticket/18273
+  * @link https://www.php.net/gzinflate#70875
+  * @link https://www.php.net/gzinflate#77336
+  *
+  * @param string $gz_data String to decompress.
+  * @return string|bool False on failure.
+  *
+  * @throws InvalidArgument When the passed argument is not a string.
+  */
+ public static function compatible_gzinflate($gz_data) {
 		if (is_string($gz_data) === false) {
 			throw InvalidArgument::create(1, '$gz_data', 'string', gettype($gz_data));
 		}

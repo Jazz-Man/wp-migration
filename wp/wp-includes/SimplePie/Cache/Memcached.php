@@ -67,7 +67,14 @@ class SimplePie_Cache_Memcached implements SimplePie_Cache_Base
      * Options
      * @var array
      */
-    protected $options;
+    protected $options = array(
+        'host'   => '127.0.0.1',
+        'port'   => 11211,
+        'extras' => array(
+            'timeout' => 3600, // one hour
+            'prefix'  => 'simplepie_',
+        ),
+    );
 
     /**
      * Cache name
@@ -82,14 +89,6 @@ class SimplePie_Cache_Memcached implements SimplePie_Cache_Base
      * @param string $type     Either TYPE_FEED for SimplePie data, or TYPE_IMAGE for image data
      */
     public function __construct($location, $name, $type) {
-        $this->options = array(
-            'host'   => '127.0.0.1',
-            'port'   => 11211,
-            'extras' => array(
-                'timeout' => 3600, // one hour
-                'prefix'  => 'simplepie_',
-            ),
-        );
         $this->options = SimplePie_Misc::array_merge_recursive($this->options, SimplePie_Cache::parse_URL($location));
 
         $this->name = $this->options['extras']['prefix'] . md5("$name:$type");

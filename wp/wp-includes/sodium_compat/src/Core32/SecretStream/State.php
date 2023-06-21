@@ -9,7 +9,7 @@ class ParagonIE_Sodium_Core32_SecretStream_State
     protected $key;
 
     /** @var int $counter */
-    protected $counter;
+    protected $counter = 1;
 
     /** @var string $nonce */
     protected $nonce;
@@ -25,7 +25,6 @@ class ParagonIE_Sodium_Core32_SecretStream_State
     public function __construct($key, $nonce = null)
     {
         $this->key = $key;
-        $this->counter = 1;
         if (is_null($nonce)) {
             $nonce = str_repeat("\0", 12);
         }

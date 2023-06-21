@@ -70,7 +70,39 @@ class WP_Term_Query {
 	 * @since 4.6.0
 	 * @var array
 	 */
-	public $query_var_defaults;
+	public $query_var_defaults = array(
+			'taxonomy'               => null,
+			'object_ids'             => null,
+			'orderby'                => 'name',
+			'order'                  => 'ASC',
+			'hide_empty'             => true,
+			'include'                => array(),
+			'exclude'                => array(),
+			'exclude_tree'           => array(),
+			'number'                 => '',
+			'offset'                 => '',
+			'fields'                 => 'all',
+			'count'                  => false,
+			'name'                   => '',
+			'slug'                   => '',
+			'term_taxonomy_id'       => '',
+			'hierarchical'           => true,
+			'search'                 => '',
+			'name__like'             => '',
+			'description__like'      => '',
+			'pad_counts'             => false,
+			'get'                    => '',
+			'child_of'               => 0,
+			'parent'                 => '',
+			'childless'              => false,
+			'cache_domain'           => 'core',
+			'update_term_meta_cache' => true,
+			'meta_query'             => '',
+			'meta_key'               => '',
+			'meta_value'             => '',
+			'meta_type'              => '',
+			'meta_compare'           => '',
+		);
 
 	/**
 	 * List of terms located by the query.
@@ -194,40 +226,6 @@ class WP_Term_Query {
 	 * }
 	 */
 	public function __construct( $query = '' ) {
-		$this->query_var_defaults = array(
-			'taxonomy'               => null,
-			'object_ids'             => null,
-			'orderby'                => 'name',
-			'order'                  => 'ASC',
-			'hide_empty'             => true,
-			'include'                => array(),
-			'exclude'                => array(),
-			'exclude_tree'           => array(),
-			'number'                 => '',
-			'offset'                 => '',
-			'fields'                 => 'all',
-			'count'                  => false,
-			'name'                   => '',
-			'slug'                   => '',
-			'term_taxonomy_id'       => '',
-			'hierarchical'           => true,
-			'search'                 => '',
-			'name__like'             => '',
-			'description__like'      => '',
-			'pad_counts'             => false,
-			'get'                    => '',
-			'child_of'               => 0,
-			'parent'                 => '',
-			'childless'              => false,
-			'cache_domain'           => 'core',
-			'update_term_meta_cache' => true,
-			'meta_query'             => '',
-			'meta_key'               => '',
-			'meta_value'             => '',
-			'meta_type'              => '',
-			'meta_compare'           => '',
-		);
-
 		if ( ! empty( $query ) ) {
 			$this->query( $query );
 		}

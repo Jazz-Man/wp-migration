@@ -34,14 +34,14 @@ class Cookie {
 	public $value;
 
 	/**
-	 * Cookie attributes
-	 *
-	 * Valid keys are (currently) path, domain, expires, max-age, secure and
-	 * httponly.
-	 *
-	 * @var \WpOrg\Requests\Utility\CaseInsensitiveDictionary|array Array-like object
-	 */
-	public $attributes = [];
+  * Cookie attributes
+  *
+  * Valid keys are (currently) path, domain, expires, max-age, secure and
+  * httponly.
+  *
+  * @var CaseInsensitiveDictionary|array Array-like object
+  */
+ public $attributes = [];
 
 	/**
 	 * Cookie flags
@@ -64,21 +64,21 @@ class Cookie {
 	public $reference_time = 0;
 
 	/**
-	 * Create a new cookie object
-	 *
-	 * @param string $name
-	 * @param string $value
-	 * @param array|\WpOrg\Requests\Utility\CaseInsensitiveDictionary $attributes Associative array of attribute data
-	 * @param array $flags
-	 * @param int|null $reference_time
-	 *
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed $name argument is not a string.
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed $value argument is not a string.
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed $attributes argument is not an array or iterable object with array access.
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed $flags argument is not an array.
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed $reference_time argument is not an integer or null.
-	 */
-	public function __construct($name, $value, $attributes = [], $flags = [], $reference_time = null) {
+  * Create a new cookie object
+  *
+  * @param string $name
+  * @param string $value
+  * @param array|CaseInsensitiveDictionary $attributes Associative array of attribute data
+  * @param array $flags
+  * @param int|null $reference_time
+  *
+  * @throws InvalidArgument When the passed $name argument is not a string.
+  * @throws InvalidArgument When the passed $value argument is not a string.
+  * @throws InvalidArgument When the passed $attributes argument is not an array or iterable object with array access.
+  * @throws InvalidArgument When the passed $flags argument is not an array.
+  * @throws InvalidArgument When the passed $reference_time argument is not an integer or null.
+  */
+ public function __construct($name, $value, $attributes = [], $flags = [], $reference_time = null) {
 		if (is_string($name) === false) {
 			throw InvalidArgument::create(1, '$name', 'string', gettype($name));
 		}
@@ -154,12 +154,12 @@ class Cookie {
 	}
 
 	/**
-	 * Check if a cookie is valid for a given URI
-	 *
-	 * @param \WpOrg\Requests\Iri $uri URI to check
-	 * @return boolean Whether the cookie is valid for the given URI
-	 */
-	public function uri_matches(Iri $uri) {
+  * Check if a cookie is valid for a given URI
+  *
+  * @param Iri $uri URI to check
+  * @return boolean Whether the cookie is valid for the given URI
+  */
+ public function uri_matches(Iri $uri) {
 		if (!$this->domain_matches($uri->host)) {
 			return false;
 		}
@@ -394,21 +394,21 @@ class Cookie {
 	}
 
 	/**
-	 * Parse a cookie string into a cookie object
-	 *
-	 * Based on Mozilla's parsing code in Firefox and related projects, which
-	 * is an intentional deviation from RFC 2109 and RFC 2616. RFC 6265
-	 * specifies some of this handling, but not in a thorough manner.
-	 *
-	 * @param string $cookie_header Cookie header value (from a Set-Cookie header)
-	 * @param string $name
-	 * @param int|null $reference_time
-	 * @return \WpOrg\Requests\Cookie Parsed cookie object
-	 *
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed $cookie_header argument is not a string.
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed $name argument is not a string.
-	 */
-	public static function parse($cookie_header, $name = '', $reference_time = null) {
+  * Parse a cookie string into a cookie object
+  *
+  * Based on Mozilla's parsing code in Firefox and related projects, which
+  * is an intentional deviation from RFC 2109 and RFC 2616. RFC 6265
+  * specifies some of this handling, but not in a thorough manner.
+  *
+  * @param string $cookie_header Cookie header value (from a Set-Cookie header)
+  * @param string $name
+  * @param int|null $reference_time
+  * @return \WpOrg\Requests\Cookie Parsed cookie object
+  *
+  * @throws InvalidArgument When the passed $cookie_header argument is not a string.
+  * @throws InvalidArgument When the passed $name argument is not a string.
+  */
+ public static function parse($cookie_header, $name = '', $reference_time = null) {
 		if (is_string($cookie_header) === false) {
 			throw InvalidArgument::create(1, '$cookie_header', 'string', gettype($cookie_header));
 		}
@@ -459,14 +459,14 @@ class Cookie {
 	}
 
 	/**
-	 * Parse all Set-Cookie headers from request headers
-	 *
-	 * @param \WpOrg\Requests\Response\Headers $headers Headers to parse from
-	 * @param \WpOrg\Requests\Iri|null $origin URI for comparing cookie origins
-	 * @param int|null $time Reference time for expiration calculation
-	 * @return array
-	 */
-	public static function parse_from_headers(Headers $headers, Iri $origin = null, $time = null) {
+  * Parse all Set-Cookie headers from request headers
+  *
+  * @param Headers $headers Headers to parse from
+  * @param Iri|null $origin URI for comparing cookie origins
+  * @param int|null $time Reference time for expiration calculation
+  * @return array
+  */
+ public static function parse_from_headers(Headers $headers, Iri $origin = null, $time = null) {
 		$cookie_headers = $headers->getValues('Set-Cookie');
 		if (empty($cookie_headers)) {
 			return [];
