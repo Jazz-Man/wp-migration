@@ -4,3 +4,4 @@
 /wp/wp-includes/ID3
 
 !.gitignore
+/.php-cs-fixer.cache
