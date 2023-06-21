@@ -32,13 +32,13 @@ class Jar implements ArrayAccess, IteratorAggregate {
 	protected $cookies = [];
 
 	/**
-	 * Create a new jar
-	 *
-	 * @param array $cookies Existing cookie values
-	 *
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed argument is not an array.
-	 */
-	public function __construct($cookies = []) {
+  * Create a new jar
+  *
+  * @param array $cookies Existing cookie values
+  *
+  * @throws InvalidArgument When the passed argument is not an array.
+  */
+ public function __construct($cookies = []) {
 		if (is_array($cookies) === false) {
 			throw InvalidArgument::create(1, '$cookies', 'array', gettype($cookies));
 		}
@@ -47,12 +47,12 @@ class Jar implements ArrayAccess, IteratorAggregate {
 	}
 
 	/**
-	 * Normalise cookie data into a \WpOrg\Requests\Cookie
-	 *
-	 * @param string|\WpOrg\Requests\Cookie $cookie
-	 * @return \WpOrg\Requests\Cookie
-	 */
-	public function normalize_cookie($cookie, $key = '') {
+  * Normalise cookie data into a \WpOrg\Requests\Cookie
+  *
+  * @param string|Cookie $cookie
+  * @return Cookie
+  */
+ public function normalize_cookie($cookie, $key = '') {
 		if ($cookie instanceof Cookie) {
 			return $cookie;
 		}
@@ -87,14 +87,22 @@ class Jar implements ArrayAccess, IteratorAggregate {
 	}
 
 	/**
-	 * Set the given item
-	 *
-	 * @param string $offset Item name
-	 * @param string $value Item value
-	 *
-	 * @throws \WpOrg\Requests\Exception On attempting to use dictionary as list (`invalidset`)
-	 */
-	#[ReturnTypeWillChange]
+  * Set the given item
+  *
+  * @param string $offset Item name
+  * @param string $value Item value
+  *
+  * @throws Exception On attempting to use dictionary as list (`invalidset`)
+  */
+ /**
+  * Set the given item
+  *
+  * @param string $offset Item name
+  * @param string $value Item value
+  *
+  * @throws Exception On attempting to use dictionary as list (`invalidset`)
+  */
+ #[ReturnTypeWillChange]
 	public function offsetSet($offset, $value) {
 		if ($offset === null) {
 			throw new Exception('Object is a dictionary, not a list', 'invalidset');
@@ -124,11 +132,11 @@ class Jar implements ArrayAccess, IteratorAggregate {
 	}
 
 	/**
-	 * Register the cookie handler with the request's hooking system
-	 *
-	 * @param \WpOrg\Requests\HookManager $hooks Hooking system
-	 */
-	public function register(HookManager $hooks) {
+  * Register the cookie handler with the request's hooking system
+  *
+  * @param HookManager $hooks Hooking system
+  */
+ public function register(HookManager $hooks) {
 		$hooks->register('requests.before_request', [$this, 'before_request']);
 		$hooks->register('requests.before_redirect_check', [$this, 'before_redirect_check']);
 	}
@@ -169,11 +177,11 @@ class Jar implements ArrayAccess, IteratorAggregate {
 	}
 
 	/**
-	 * Parse all cookies from a response and attach them to the response
-	 *
-	 * @param \WpOrg\Requests\Response $response
-	 */
-	public function before_redirect_check(Response $response) {
+  * Parse all cookies from a response and attach them to the response
+  *
+  * @param Response $response
+  */
+ public function before_redirect_check(Response $response) {
 		$url = $response->url;
 		if (!$url instanceof Iri) {
 			$url = new Iri($url);

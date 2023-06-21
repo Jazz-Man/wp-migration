@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<psalm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="https://getpsalm.org/schema/config"
+       xsi:schemaLocation="https://getpsalm.org/schema/config"
+       cacheDirectory="cache/psalm"
+       serializer="igbinary"
+       errorLevel="1"
+       phpVersion="8.2"
+       addParamDefaultToDocblockType="true"
+>
+    <projectFiles>
+        <directory name="old-libs"/>
+        <directory name="wp" />
+        <ignoreFiles>
+            <directory name="vendor"/>
+            <directory name="cache"/>
+            <file name="rector.php"/>
+            <file name=".php-cs-fixer.php"/>
+        </ignoreFiles>
+    </projectFiles>
+    <globals>
+        <var name="wpdb" type="\wpdb"/>
+        <var name="wp_query" type="\WP_Query"/>
+        <var name="wp_rewrite" type="\WP_Rewrite"/>
+        <var name="wp_version" type="string"/>
+        <var name="ABSPATH" type="string"/>
+    </globals>
+    <enableExtensions>
+        <extension name="apcu"/>
+        <extension name="decimal"/>
+        <extension name="dom"/>
+        <extension name="pdo"/>
+        <extension name="random"/>
+        <extension name="redis"/>
+        <extension name="simplexml"/>
+    </enableExtensions>
+</psalm>

@@ -72,14 +72,22 @@ class CaseInsensitiveDictionary implements ArrayAccess, IteratorAggregate {
 	}
 
 	/**
-	 * Set the given item
-	 *
-	 * @param string $offset Item name
-	 * @param string $value Item value
-	 *
-	 * @throws \WpOrg\Requests\Exception On attempting to use dictionary as list (`invalidset`)
-	 */
-	#[ReturnTypeWillChange]
+  * Set the given item
+  *
+  * @param string $offset Item name
+  * @param string $value Item value
+  *
+  * @throws Exception On attempting to use dictionary as list (`invalidset`)
+  */
+ /**
+  * Set the given item
+  *
+  * @param string $offset Item name
+  * @param string $value Item value
+  *
+  * @throws Exception On attempting to use dictionary as list (`invalidset`)
+  */
+ #[ReturnTypeWillChange]
 	public function offsetSet($offset, $value) {
 		if ($offset === null) {
 			throw new Exception('Object is a dictionary, not a list', 'invalidset');

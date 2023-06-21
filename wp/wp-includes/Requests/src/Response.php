@@ -38,11 +38,11 @@ class Response {
 	public $raw = '';
 
 	/**
-	 * Headers, as an associative array
-	 *
-	 * @var \WpOrg\Requests\Response\Headers Array-like object representing headers
-	 */
-	public $headers = [];
+  * Headers, as an associative array
+  *
+  * @var Headers Array-like object representing headers
+  */
+ public $headers = [];
 
 	/**
 	 * Status code, false if non-blocking
@@ -87,11 +87,11 @@ class Response {
 	public $history = [];
 
 	/**
-	 * Cookies from the request
-	 *
-	 * @var \WpOrg\Requests\Cookie\Jar Array-like object representing a cookie jar
-	 */
-	public $cookies = [];
+  * Cookies from the request
+  *
+  * @var Jar Array-like object representing a cookie jar
+  */
+ public $cookies = [];
 
 	/**
 	 * Constructor
@@ -112,14 +112,14 @@ class Response {
 	}
 
 	/**
-	 * Throws an exception if the request was not successful
-	 *
-	 * @param boolean $allow_redirects Set to false to throw on a 3xx as well
-	 *
-	 * @throws \WpOrg\Requests\Exception If `$allow_redirects` is false, and code is 3xx (`response.no_redirects`)
-	 * @throws \WpOrg\Requests\Exception\Http On non-successful status code. Exception class corresponds to "Status" + code (e.g. {@see \WpOrg\Requests\Exception\Http\Status404})
-	 */
-	public function throw_for_status($allow_redirects = true) {
+  * Throws an exception if the request was not successful
+  *
+  * @param boolean $allow_redirects Set to false to throw on a 3xx as well
+  *
+  * @throws Exception If `$allow_redirects` is false, and code is 3xx (`response.no_redirects`)
+  * @throws Http On non-successful status code. Exception class corresponds to "Status" + code (e.g. {@see \WpOrg\Requests\Exception\Http\Status404})
+  */
+ public function throw_for_status($allow_redirects = true) {
 		if ($this->is_redirect()) {
 			if ($allow_redirects !== true) {
 				throw new Exception('Redirection not allowed', 'response.no_redirects', $this);
@@ -131,28 +131,28 @@ class Response {
 	}
 
 	/**
-	 * JSON decode the response body.
-	 *
-	 * The method parameters are the same as those for the PHP native `json_decode()` function.
-	 *
-	 * @link https://php.net/json-decode
-	 *
-	 * @param ?bool $associative Optional. When `true`, JSON objects will be returned as associative arrays;
-	 *                           When `false`, JSON objects will be returned as objects.
-	 *                           When `null`, JSON objects will be returned as associative arrays
-	 *                           or objects depending on whether `JSON_OBJECT_AS_ARRAY` is set in the flags.
-	 *                           Defaults to `true` (in contrast to the PHP native default of `null`).
-	 * @param int   $depth       Optional. Maximum nesting depth of the structure being decoded.
-	 *                           Defaults to `512`.
-	 * @param int   $options     Optional. Bitmask of JSON_BIGINT_AS_STRING, JSON_INVALID_UTF8_IGNORE,
-	 *                           JSON_INVALID_UTF8_SUBSTITUTE, JSON_OBJECT_AS_ARRAY, JSON_THROW_ON_ERROR.
-	 *                           Defaults to `0` (no options set).
-	 *
-	 * @return array
-	 *
-	 * @throws \WpOrg\Requests\Exception If `$this->body` is not valid json.
-	 */
-	public function decode_body($associative = true, $depth = 512, $options = 0) {
+  * JSON decode the response body.
+  *
+  * The method parameters are the same as those for the PHP native `json_decode()` function.
+  *
+  * @link https://php.net/json-decode
+  *
+  * @param ?bool $associative Optional. When `true`, JSON objects will be returned as associative arrays;
+  *                           When `false`, JSON objects will be returned as objects.
+  *                           When `null`, JSON objects will be returned as associative arrays
+  *                           or objects depending on whether `JSON_OBJECT_AS_ARRAY` is set in the flags.
+  *                           Defaults to `true` (in contrast to the PHP native default of `null`).
+  * @param int   $depth       Optional. Maximum nesting depth of the structure being decoded.
+  *                           Defaults to `512`.
+  * @param int   $options     Optional. Bitmask of JSON_BIGINT_AS_STRING, JSON_INVALID_UTF8_IGNORE,
+  *                           JSON_INVALID_UTF8_SUBSTITUTE, JSON_OBJECT_AS_ARRAY, JSON_THROW_ON_ERROR.
+  *                           Defaults to `0` (no options set).
+  *
+  * @return array
+  *
+  * @throws Exception If `$this->body` is not valid json.
+  */
+ public function decode_body($associative = true, $depth = 512, $options = 0) {
 		$data = json_decode($this->body, $associative, $depth, $options);
 
 		if (json_last_error() !== JSON_ERROR_NONE) {

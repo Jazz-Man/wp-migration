@@ -20,27 +20,27 @@ use WpOrg\Requests\Utility\InputValidator;
  */
 final class Ipv6 {
 	/**
-	 * Uncompresses an IPv6 address
-	 *
-	 * RFC 4291 allows you to compress consecutive zero pieces in an address to
-	 * '::'. This method expects a valid IPv6 address and expands the '::' to
-	 * the required number of zero pieces.
-	 *
-	 * Example:  FF01::101   ->  FF01:0:0:0:0:0:0:101
-	 *           ::1         ->  0:0:0:0:0:0:0:1
-	 *
-	 * @author Alexander Merz <alexander.merz@web.de>
-	 * @author elfrink at introweb dot nl
-	 * @author Josh Peck <jmp at joshpeck dot org>
-	 * @copyright 2003-2005 The PHP Group
-	 * @license https://opensource.org/licenses/bsd-license.php
-	 *
-	 * @param string|Stringable $ip An IPv6 address
-	 * @return string The uncompressed IPv6 address
-	 *
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed argument is not a string or a stringable object.
-	 */
-	public static function uncompress($ip) {
+  * Uncompresses an IPv6 address
+  *
+  * RFC 4291 allows you to compress consecutive zero pieces in an address to
+  * '::'. This method expects a valid IPv6 address and expands the '::' to
+  * the required number of zero pieces.
+  *
+  * Example:  FF01::101   ->  FF01:0:0:0:0:0:0:101
+  *           ::1         ->  0:0:0:0:0:0:0:1
+  *
+  * @author Alexander Merz <alexander.merz@web.de>
+  * @author elfrink at introweb dot nl
+  * @author Josh Peck <jmp at joshpeck dot org>
+  * @copyright 2003-2005 The PHP Group
+  * @license https://opensource.org/licenses/bsd-license.php
+  *
+  * @param string|Stringable $ip An IPv6 address
+  * @return string The uncompressed IPv6 address
+  *
+  * @throws InvalidArgument When the passed argument is not a string or a stringable object.
+  */
+ public static function uncompress($ip) {
 		if (InputValidator::is_string_or_stringable($ip) === false) {
 			throw InvalidArgument::create(1, '$ip', 'string|Stringable', gettype($ip));
 		}

@@ -85,7 +85,7 @@ class AtomParser {
     var $FILE = "php://input";
 
     var $feed;
-    var $current;
+    var $current = null;
 
 	/**
 	 * PHP5 constructor.
@@ -93,7 +93,6 @@ class AtomParser {
     function __construct() {
 
         $this->feed = new AtomFeed();
-        $this->current = null;
         $this->map_attrs_func = array( __CLASS__, 'map_attrs' );
         $this->map_xmlns_func = array( __CLASS__, 'map_xmlns' );
     }

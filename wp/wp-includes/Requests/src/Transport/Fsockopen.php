@@ -54,22 +54,22 @@ final class Fsockopen implements Transport {
 	private $connect_error = '';
 
 	/**
-	 * Perform a request
-	 *
-	 * @param string|Stringable $url URL to request
-	 * @param array $headers Associative array of request headers
-	 * @param string|array $data Data to send either as the POST body, or as parameters in the URL for a GET/HEAD
-	 * @param array $options Request options, see {@see \WpOrg\Requests\Requests::response()} for documentation
-	 * @return string Raw HTTP result
-	 *
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed $url argument is not a string or Stringable.
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed $headers argument is not an array.
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed $data parameter is not an array or string.
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed $options argument is not an array.
-	 * @throws \WpOrg\Requests\Exception       On failure to connect to socket (`fsockopenerror`)
-	 * @throws \WpOrg\Requests\Exception       On socket timeout (`timeout`)
-	 */
-	public function request($url, $headers = [], $data = [], $options = []) {
+  * Perform a request
+  *
+  * @param string|Stringable $url URL to request
+  * @param array $headers Associative array of request headers
+  * @param string|array $data Data to send either as the POST body, or as parameters in the URL for a GET/HEAD
+  * @param array $options Request options, see {@see \WpOrg\Requests\Requests::response()} for documentation
+  * @return string Raw HTTP result
+  *
+  * @throws InvalidArgument When the passed $url argument is not a string or Stringable.
+  * @throws InvalidArgument When the passed $headers argument is not an array.
+  * @throws InvalidArgument When the passed $data parameter is not an array or string.
+  * @throws InvalidArgument When the passed $options argument is not an array.
+  * @throws Exception On failure to connect to socket (`fsockopenerror`)
+  * @throws Exception On socket timeout (`timeout`)
+  */
+ public function request($url, $headers = [], $data = [], $options = []) {
 		if (InputValidator::is_string_or_stringable($url) === false) {
 			throw InvalidArgument::create(1, '$url', 'string|Stringable', gettype($url));
 		}
@@ -339,16 +339,16 @@ final class Fsockopen implements Transport {
 	}
 
 	/**
-	 * Send multiple requests simultaneously
-	 *
-	 * @param array $requests Request data (array of 'url', 'headers', 'data', 'options') as per {@see \WpOrg\Requests\Transport::request()}
-	 * @param array $options Global options, see {@see \WpOrg\Requests\Requests::response()} for documentation
-	 * @return array Array of \WpOrg\Requests\Response objects (may contain \WpOrg\Requests\Exception or string responses as well)
-	 *
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed $requests argument is not an array or iterable object with array access.
-	 * @throws \WpOrg\Requests\Exception\InvalidArgument When the passed $options argument is not an array.
-	 */
-	public function request_multiple($requests, $options) {
+  * Send multiple requests simultaneously
+  *
+  * @param array $requests Request data (array of 'url', 'headers', 'data', 'options') as per {@see \WpOrg\Requests\Transport::request()}
+  * @param array $options Global options, see {@see \WpOrg\Requests\Requests::response()} for documentation
+  * @return array Array of \WpOrg\Requests\Response objects (may contain \WpOrg\Requests\Exception or string responses as well)
+  *
+  * @throws InvalidArgument When the passed $requests argument is not an array or iterable object with array access.
+  * @throws InvalidArgument When the passed $options argument is not an array.
+  */
+ public function request_multiple($requests, $options) {
 		// If you're not requesting, we can't get any responses ¯\_(ツ)_/¯
 		if (empty($requests)) {
 			return [];
@@ -450,22 +450,22 @@ final class Fsockopen implements Transport {
 	}
 
 	/**
-	 * Verify the certificate against common name and subject alternative names
-	 *
-	 * Unfortunately, PHP doesn't check the certificate against the alternative
-	 * names, leading things like 'https://www.github.com/' to be invalid.
-	 * Instead
-	 *
-	 * @link https://tools.ietf.org/html/rfc2818#section-3.1 RFC2818, Section 3.1
-	 *
-	 * @param string $host Host name to verify against
-	 * @param resource $context Stream context
-	 * @return bool
-	 *
-	 * @throws \WpOrg\Requests\Exception On failure to connect via TLS (`fsockopen.ssl.connect_error`)
-	 * @throws \WpOrg\Requests\Exception On not obtaining a match for the host (`fsockopen.ssl.no_match`)
-	 */
-	public function verify_certificate_from_context($host, $context) {
+  * Verify the certificate against common name and subject alternative names
+  *
+  * Unfortunately, PHP doesn't check the certificate against the alternative
+  * names, leading things like 'https://www.github.com/' to be invalid.
+  * Instead
+  *
+  * @link https://tools.ietf.org/html/rfc2818#section-3.1 RFC2818, Section 3.1
+  *
+  * @param string $host Host name to verify against
+  * @param resource $context Stream context
+  * @return bool
+  *
+  * @throws Exception On failure to connect via TLS (`fsockopen.ssl.connect_error`)
+  * @throws Exception On not obtaining a match for the host (`fsockopen.ssl.no_match`)
+  */
+ public function verify_certificate_from_context($host, $context) {
 		$meta = stream_context_get_options($context);
 
 		// If we don't have SSL options, then we couldn't make the connection at

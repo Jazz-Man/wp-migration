@@ -1,4 +1,8 @@
 <?php
+
+use WpOrg\Requests\Response;
+use WpOrg\Requests\Utility\CaseInsensitiveDictionary;
+use WpOrg\Requests\Response\Headers;
 /**
  * HTTP API: WP_HTTP_Requests_Response class
  *
@@ -6,7 +10,6 @@
  * @subpackage HTTP
  * @since 4.6.0
  */
-
 /**
  * Core wrapper object for a WpOrg\Requests\Response for standardisation.
  *
@@ -16,12 +19,12 @@
  */
 class WP_HTTP_Requests_Response extends WP_HTTP_Response {
 	/**
-	 * Requests Response object.
-	 *
-	 * @since 4.6.0
-	 * @var \WpOrg\Requests\Response
-	 */
-	protected $response;
+  * Requests Response object.
+  *
+  * @since 4.6.0
+  * @var Response
+  */
+ protected $response;
 
 	/**
 	 * Filename the response was saved to.
@@ -32,39 +35,39 @@ class WP_HTTP_Requests_Response extends WP_HTTP_Response {
 	protected $filename;
 
 	/**
-	 * Constructor.
-	 *
-	 * @since 4.6.0
-	 *
-	 * @param \WpOrg\Requests\Response $response HTTP response.
-	 * @param string                   $filename Optional. File name. Default empty.
-	 */
-	public function __construct( WpOrg\Requests\Response $response, $filename = '' ) {
+  * Constructor.
+  *
+  * @since 4.6.0
+  *
+  * @param Response $response HTTP response.
+  * @param string                   $filename Optional. File name. Default empty.
+  */
+ public function __construct( Response $response, $filename = '' ) {
 		$this->response = $response;
 		$this->filename = $filename;
 	}
 
 	/**
-	 * Retrieves the response object for the request.
-	 *
-	 * @since 4.6.0
-	 *
-	 * @return WpOrg\Requests\Response HTTP response.
-	 */
-	public function get_response_object() {
+  * Retrieves the response object for the request.
+  *
+  * @since 4.6.0
+  *
+  * @return Response HTTP response.
+  */
+ public function get_response_object() {
 		return $this->response;
 	}
 
 	/**
-	 * Retrieves headers associated with the response.
-	 *
-	 * @since 4.6.0
-	 *
-	 * @return \WpOrg\Requests\Utility\CaseInsensitiveDictionary Map of header name to header value.
-	 */
-	public function get_headers() {
+  * Retrieves headers associated with the response.
+  *
+  * @since 4.6.0
+  *
+  * @return CaseInsensitiveDictionary Map of header name to header value.
+  */
+ public function get_headers() {
 		// Ensure headers remain case-insensitive.
-		$converted = new WpOrg\Requests\Utility\CaseInsensitiveDictionary();
+		$converted = new CaseInsensitiveDictionary();
 
 		foreach ( $this->response->headers->getAll() as $key => $value ) {
 			if ( count( $value ) === 1 ) {
@@ -85,7 +88,7 @@ class WP_HTTP_Requests_Response extends WP_HTTP_Response {
 	 * @param array $headers Map of header name to header value.
 	 */
 	public function set_headers( $headers ) {
-		$this->response->headers = new WpOrg\Requests\Response\Headers( $headers );
+		$this->response->headers = new Headers( $headers );
 	}
 
 	/**

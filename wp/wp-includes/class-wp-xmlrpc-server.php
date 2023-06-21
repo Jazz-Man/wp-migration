@@ -27,47 +27,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *
 	 * @var array
 	 */
-	public $methods;
-
-	/**
-	 * Blog options.
-	 *
-	 * @var array
-	 */
-	public $blog_options;
-
-	/**
-	 * IXR_Error instance.
-	 *
-	 * @var IXR_Error
-	 */
-	public $error;
-
-	/**
-	 * Flags that the user authentication has failed in this instance of wp_xmlrpc_server.
-	 *
-	 * @var bool
-	 */
-	protected $auth_failed = false;
-
-	/**
-	 * Flags that XML-RPC is enabled
-	 *
-	 * @var bool
-	 */
-	private $is_enabled;
-
-	/**
-	 * Registers all of the XMLRPC methods that XMLRPC server understands.
-	 *
-	 * Sets up server and method property. Passes XMLRPC methods through the
-	 * {@see 'xmlrpc_methods'} filter to allow plugins to extend or replace
-	 * XML-RPC methods.
-	 *
-	 * @since 1.5.0
-	 */
-	public function __construct() {
-		$this->methods = array(
+	public $methods = array(
 			// WordPress API.
 			'wp.getUsersBlogs'                 => 'this:wp_getUsersBlogs',
 			'wp.newPost'                       => 'this:wp_newPost',
@@ -160,6 +120,44 @@ class wp_xmlrpc_server extends IXR_Server {
 			'demo.addTwoNumbers'               => 'this:addTwoNumbers',
 		);
 
+	/**
+	 * Blog options.
+	 *
+	 * @var array
+	 */
+	public $blog_options;
+
+	/**
+	 * IXR_Error instance.
+	 *
+	 * @var IXR_Error
+	 */
+	public $error;
+
+	/**
+	 * Flags that the user authentication has failed in this instance of wp_xmlrpc_server.
+	 *
+	 * @var bool
+	 */
+	protected $auth_failed = false;
+
+	/**
+	 * Flags that XML-RPC is enabled
+	 *
+	 * @var bool
+	 */
+	private $is_enabled;
+
+	/**
+	 * Registers all of the XMLRPC methods that XMLRPC server understands.
+	 *
+	 * Sets up server and method property. Passes XMLRPC methods through the
+	 * {@see 'xmlrpc_methods'} filter to allow plugins to extend or replace
+	 * XML-RPC methods.
+	 *
+	 * @since 1.5.0
+	 */
+	public function __construct() {
 		$this->initialise_blog_option_info();
 
 		/**

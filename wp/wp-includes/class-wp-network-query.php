@@ -54,7 +54,25 @@ class WP_Network_Query {
 	 * @since 4.6.0
 	 * @var array
 	 */
-	public $query_var_defaults;
+	public $query_var_defaults = array(
+			'network__in'          => '',
+			'network__not_in'      => '',
+			'count'                => false,
+			'fields'               => '',
+			'number'               => '',
+			'offset'               => '',
+			'no_found_rows'        => true,
+			'orderby'              => 'id',
+			'order'                => 'ASC',
+			'domain'               => '',
+			'domain__in'           => '',
+			'domain__not_in'       => '',
+			'path'                 => '',
+			'path__in'             => '',
+			'path__not_in'         => '',
+			'search'               => '',
+			'update_network_cache' => true,
+		);
 
 	/**
 	 * List of networks located by the query.
@@ -115,26 +133,6 @@ class WP_Network_Query {
 	 * }
 	 */
 	public function __construct( $query = '' ) {
-		$this->query_var_defaults = array(
-			'network__in'          => '',
-			'network__not_in'      => '',
-			'count'                => false,
-			'fields'               => '',
-			'number'               => '',
-			'offset'               => '',
-			'no_found_rows'        => true,
-			'orderby'              => 'id',
-			'order'                => 'ASC',
-			'domain'               => '',
-			'domain__in'           => '',
-			'domain__not_in'       => '',
-			'path'                 => '',
-			'path__in'             => '',
-			'path__not_in'         => '',
-			'search'               => '',
-			'update_network_cache' => true,
-		);
-
 		if ( ! empty( $query ) ) {
 			$this->query( $query );
 		}

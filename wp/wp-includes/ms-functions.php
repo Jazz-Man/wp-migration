@@ -393,7 +393,7 @@ function is_email_address_unsafe( $user_email ) {
 		$banned_names     = array_map( 'strtolower', $banned_names );
 		$normalized_email = strtolower( $user_email );
 
-		list( $email_local_part, $email_domain ) = explode( '@', $normalized_email );
+		[ $email_local_part, $email_domain ] = explode( '@', $normalized_email );
 
 		foreach ( $banned_names as $banned_domain ) {
 			if ( ! $banned_domain ) {
@@ -2267,11 +2267,12 @@ function add_new_user_to_blog( $user_id, $password, $meta ) {
 /**
  * Corrects From host on outgoing mail to match the site domain.
  *
- * @since MU (3.0.0)
- *
  * @param PHPMailer $phpmailer The PHPMailer instance (passed by reference).
+ *
+ *@since MU (3.0.0)
+ *
  */
-function fix_phpmailer_messageid( $phpmailer ) {
+function fix_phpmailer_messageid( PHPMailer $phpmailer ) {
 	$phpmailer->Hostname = get_network()->domain;
 }
 

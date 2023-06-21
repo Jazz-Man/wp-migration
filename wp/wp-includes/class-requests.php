@@ -1,4 +1,5 @@
 <?php
+use WpOrg\Requests\Autoload;
 /**
  * Requests for PHP
  *
@@ -60,7 +61,7 @@ class Requests extends WpOrg\Requests\Requests {
 			require_once __DIR__ . '/Requests/src/Autoload.php';
 		}
 
-		return WpOrg\Requests\Autoload::load($class);
+		return Autoload::load($class);
 	}
 
 	/**
@@ -73,6 +74,6 @@ class Requests extends WpOrg\Requests\Requests {
 	 */
 	public static function register_autoloader() {
 		require_once __DIR__ . '/Requests/src/Autoload.php';
-		WpOrg\Requests\Autoload::register();
+		Autoload::register();
 	}
 }

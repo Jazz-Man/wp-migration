@@ -46,7 +46,17 @@ class WP_REST_Request implements ArrayAccess {
 	 * @since 4.4.0
 	 * @var array Contains GET, POST and FILES keys mapping to arrays of data.
 	 */
-	protected $params;
+	protected $params = array(
+			'URL'      => array(),
+			'GET'      => array(),
+			'POST'     => array(),
+			'FILES'    => array(),
+
+			// See parse_json_params.
+			'JSON'     => null,
+
+			'defaults' => array(),
+		);
 
 	/**
 	 * HTTP headers for the request.
@@ -111,18 +121,6 @@ class WP_REST_Request implements ArrayAccess {
 	 * @param array  $attributes Optional. Request attributes. Default empty array.
 	 */
 	public function __construct( $method = '', $route = '', $attributes = array() ) {
-		$this->params = array(
-			'URL'      => array(),
-			'GET'      => array(),
-			'POST'     => array(),
-			'FILES'    => array(),
-
-			// See parse_json_params.
-			'JSON'     => null,
-
-			'defaults' => array(),
-		);
-
 		$this->set_method( $method );
 		$this->set_route( $route );
 		$this->set_attributes( $attributes );

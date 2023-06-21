@@ -27,7 +27,7 @@ class WP_Site_Health {
 	public $last_missed_cron     = null;
 	public $last_late_cron       = null;
 	private $timeout_missed_cron = null;
-	private $timeout_late_cron   = null;
+	private $timeout_late_cron   = 0;
 
 	/**
 	 * WP_Site_Health constructor.
@@ -39,8 +39,6 @@ class WP_Site_Health {
 
 		// Save memory limit before it's affected by wp_raise_memory_limit( 'admin' ).
 		$this->php_memory_limit = ini_get( 'memory_limit' );
-
-		$this->timeout_late_cron   = 0;
 		$this->timeout_missed_cron = - 5 * MINUTE_IN_SECONDS;
 
 		if ( defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON ) {

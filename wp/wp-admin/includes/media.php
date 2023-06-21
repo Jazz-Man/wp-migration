@@ -3552,14 +3552,6 @@ function wp_read_video_metadata( $file ) {
 
 	$metadata = array();
 
-	if ( ! defined( 'GETID3_TEMP_DIR' ) ) {
-		define( 'GETID3_TEMP_DIR', get_temp_dir() );
-	}
-
-	if ( ! class_exists( 'getID3', false ) ) {
-		require ABSPATH . WPINC . '/ID3/getid3.php';
-	}
-
 	$id3 = new getID3();
 	// Required to get the `created_timestamp` value.
 	$id3->options_audiovideo_quicktime_ReturnAtomData = true; // phpcs:ignore WordPress.NamingConventions.ValidVariableName
@@ -3666,14 +3658,6 @@ function wp_read_audio_metadata( $file ) {
 	}
 
 	$metadata = array();
-
-	if ( ! defined( 'GETID3_TEMP_DIR' ) ) {
-		define( 'GETID3_TEMP_DIR', get_temp_dir() );
-	}
-
-	if ( ! class_exists( 'getID3', false ) ) {
-		require ABSPATH . WPINC . '/ID3/getid3.php';
-	}
 
 	$id3 = new getID3();
 	// Required to get the `created_timestamp` value.
