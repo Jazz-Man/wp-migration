@@ -22,6 +22,11 @@
     },
     "require": {
         "php": "^8.2",
+        "ext-curl": "*",
+        "ext-dom": "*",
+        "ext-libxml": "*",
+        "ext-xml": "*",
+        "ext-xmlreader": "*",
         "composer/installers": "^2.2",
         "roots/wordpress": "^6.2"
     },
