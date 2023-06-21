@@ -27,21 +27,30 @@
         "ext-dom": "*",
         "ext-exif": "*",
         "ext-ftp": "*",
+        "ext-gd": "*",
         "ext-iconv": "*",
+        "ext-imagick": "*",
+        "ext-intl": "*",
         "ext-json": "*",
         "ext-libxml": "*",
         "ext-mbstring": "*",
         "ext-mysqli": "*",
+        "ext-pcre": "*",
         "ext-psr": "*",
         "ext-simplexml": "*",
         "ext-sqlite3": "*",
+        "ext-xdiff": "*",
         "ext-xml": "*",
         "ext-xmlreader": "*",
         "ext-zlib": "*",
         "composer/installers": "^2.2",
         "james-heinrich/getid3": "^1.9",
         "mf2/mf2": "^0.5.0",
-        "roots/wordpress": "^6.2"
+        "paragonie/sodium_compat": "^1.20",
+        "pear/text_diff": "^1.2",
+        "phpmailer/phpmailer": "^6.7",
+        "roots/wordpress": "^6.2",
+        "simplepie/simplepie": "1.5.8"
     },
     "require-dev": {
         "jazzman/php-cs-fixer-rules": "^0.1.5",
@@ -69,5 +78,10 @@
             "wp/wp-content/themes/{$name}/": ["type:wordpress-theme"]
         },
         "wordpress-install-dir": "wp"
+    },
+    "autoload": {
+        "psr-0": {
+            "Snoopy": "old-libs/Snoopy"
+        }
     }
 }
