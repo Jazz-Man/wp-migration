@@ -53,7 +53,7 @@
         "simplepie/simplepie": "1.5.8"
     },
     "require-dev": {
-        "jazzman/php-cs-fixer-rules": "^0.1.5",
+        "jazzman/php-cs-fixer-rules": "^0.2.0",
         "phpstan/extension-installer": "^1.3",
         "phpstan/phpstan-deprecation-rules": "^1.1",
         "phpstan/phpstan-strict-rules": "^1.5",
@@ -73,6 +73,9 @@
         "psr/http-factory": "1.0.0",
         "psr/http-client": "1.0.0"
     },
+    "replace": {
+        "phpstan/phpstan" : "*"
+    },
     "extra": {
         "installer-paths": {
             "wp/wp-content/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
@@ -85,6 +88,7 @@
         "classmap": [
             "old-libs/Snoopy.php",
             "old-libs/PasswordHash.php"
-        ]
+        ],
+        "psr-4": {}
     }
 }
