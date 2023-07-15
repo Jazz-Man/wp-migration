@@ -2,7 +2,6 @@
 <psalm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns="https://getpsalm.org/schema/config"
        xsi:schemaLocation="https://getpsalm.org/schema/config"
-       cacheDirectory="cache/psalm"
        serializer="igbinary"
        errorLevel="1"
        phpVersion="8.2"
@@ -13,7 +12,6 @@
         <directory name="wp" />
         <ignoreFiles>
             <directory name="vendor"/>
-            <directory name="cache"/>
             <file name="rector.php"/>
             <file name=".php-cs-fixer.php"/>
         </ignoreFiles>
@@ -24,6 +22,7 @@
         <var name="wp_rewrite" type="\WP_Rewrite"/>
         <var name="wp_version" type="string"/>
         <var name="ABSPATH" type="string"/>
+        <var name="table_prefix" type="string"/>
     </globals>
     <enableExtensions>
         <extension name="apcu"/>

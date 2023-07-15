@@ -1,38 +1,36 @@
 <?php
 
-declare(strict_types=1);
+declare( strict_types=1 );
 
-use Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector;
 use Rector\Config\RectorConfig;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 
-return static function (RectorConfig $config): void {
-    $config->sets([
+return static function ( RectorConfig $config ): void {
+    $config->sets( [
         SetList::CODE_QUALITY,
         SetList::CODING_STYLE,
         SetList::TYPE_DECLARATION,
         SetList::EARLY_RETURN,
         SetList::INSTANCEOF,
-        //		SetList::NAMING,
-        //		SetList::PRIVATIZATION,
+        //        SetList::NAMING,
+        //        SetList::PRIVATIZATION,
         LevelSetList::UP_TO_PHP_82,
-    ]);
+    ] );
 
-    $config->fileExtensions(['php']);
+    $config->fileExtensions( ['php'] );
     $config->importNames();
     $config->removeUnusedImports();
-    $config->importShortClasses(false);
+    $config->importShortClasses( false );
     $config->disableParallel();
-    $config->cacheDirectory(__DIR__.'/cache/rector');
-    $config->phpstanConfig(__DIR__.'/phpstan-rector.neon');
+    $config->phpstanConfig( __DIR__.'/phpstan-rector.neon' );
 
-    $config->paths([
+    $config->paths( [
         __DIR__.'/wp',
         __DIR__.'/old-libs',
-    ]);
+    ] );
 
-    $config->skip([
+    $config->skip( [
         __DIR__.'/vendor',
         __DIR__.'/cache',
         __DIR__.'/wp/wp-admin/css',
@@ -44,7 +42,7 @@ return static function (RectorConfig $config): void {
         __DIR__.'/wp/wp-includes/fonts',
         __DIR__.'/wp/wp-includes/images',
         __DIR__.'/wp/wp-includes/js',
-    ]);
+    ] );
 
     // register a single rule
     //	$config->rule(InlineConstructorDefaultToPropertyRector::class);
